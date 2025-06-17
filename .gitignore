@@ -77,6 +77,10 @@ target/
 
 # Jupyter Notebook
 .ipynb_checkpoints
+/queueless-MC/*.png
+/queueless-MC/*.xlsx
+/queueless-MC/*.csv
+/queueless-MC/*.py
 
 # IPython
 profile_default/
