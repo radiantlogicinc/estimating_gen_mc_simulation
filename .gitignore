@@ -77,8 +77,10 @@ target/
 
 # Jupyter Notebook
 .ipynb_checkpoints
+/queueless-MC/figures
 /queueless-MC/*.png
-/queueless-MC/*.xlsx
+/queueless-MC/research/datasets/*.xlsx
+/queueless-MC/defect_remediation_estimation_service/*.xlsx
 /queueless-MC/*.csv
 /queueless-MC/*.py
 
