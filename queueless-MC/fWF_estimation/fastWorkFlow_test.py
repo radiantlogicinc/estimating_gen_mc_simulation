@@ -1,35 +1,46 @@
 import polars as pl
-import markdown
-import argparse
-from IPython.display import display, Markdown
+# import markdown
+# import argparse
+# from IPython.display import display, Markdown
 # from rich.console import Console
 # from rich.markdown import Markdown
 
 class fastWorkFlow_test:
+    """
+    
+    """
     def __init__(self, info_df):
+        """
+        Initialize the class with the full item table for all control types and time spans.
+
+        Args:
+            info_df (pl.DataFrame): Polars dataframe containing the average values for each item for every control type/time span combination
+        """
         self.info_df = info_df
 
     def extractValues(self, control_type, time_span):
-        filtered_info_df = self.info_df.filter(pl.col('control_type') == control_type, pl.col('time_span') == time_span)
-        return filtered_info_df
+        return self.info_df.filter(
+            pl.col('control_type') == control_type,
+            pl.col('time_span') == time_span,
+        )
     
-    def README(self):
-        # console = Console()
-        # with open('fastWorkFlow_test.md') as f:
-        #     readme = Markdown( f.read() )
-        #     console.print(readme)
-        f = open('fastWorkFlow_test.md', 'r')
-        htmlmarkdown=markdown.markdown( f.read() )
-        display(Markdown(htmlmarkdown))
+    # def README(self):
+    #     console = Console()
+    #     with open('fastWorkFlow_test.md') as f:
+    #         readme = Markdown( f.read() )
+    #         console.print(readme)
+        # f = open('fastWorkFlow_test.md', 'r')
+        # htmlmarkdown=markdown.markdown( f.read() )
+        # display(Markdown(htmlmarkdown))
 
 
 if __name__ == "__main__":
     ## READ IN DATABASE + PRINT README ##
-    test_df = pl.read_json('fastWorkFlow_test_v2.json', schema={"item":pl.String, "control_type":pl.String, "time_span":pl.String, "mean":pl.String})
+    test_df = pl.read_json('fWF_estimation/fastWorkFlow_test_v2.json', schema={"item":pl.String, "control_type":pl.String, "time_span":pl.String, "mean":pl.String})
     test_df = test_df.with_columns(pl.col('time_span').cast(pl.Int64).alias('time_span'))
     test_df = test_df.with_columns(pl.col('mean').cast(pl.Float64).alias('mean'))
     instance = fastWorkFlow_test(test_df)
-    instance.README()
+    # instance.README()
     # print(readme)
 
     ## INPUT PARAMETERS ##
