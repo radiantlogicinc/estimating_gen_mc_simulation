@@ -5,7 +5,7 @@ import contextlib
 from scipy.stats import skewnorm
 
 
-class defectRemediationSimulator:
+class DefectRemediationSimulator:
     def __init__(self, defect_types,
                  defect_priority, 
                  maxValue_incoming, 

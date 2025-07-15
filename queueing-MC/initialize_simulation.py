@@ -1,5 +1,5 @@
 import argparse
-from defectSimulation_v2 import defectRemediationSimulator
+from DefectSimulation import DefectRemediationSimulator
 
 def initialize_simulation(args):
     #### Initialization variables ####
@@ -17,7 +17,7 @@ def initialize_simulation(args):
 
     ####### INITIALIZATION ########
     #### Simulation instantiation ####
-    defect_simulation = defectRemediationSimulator(defect_labels,
+    defect_simulation = DefectRemediationSimulator(defect_labels,
                                                    defect_priority,
                                                    maxValue_generation,
                                                    maxValue_remediation,
