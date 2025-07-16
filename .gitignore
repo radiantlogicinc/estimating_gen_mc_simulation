@@ -82,7 +82,7 @@ target/
 /queueless-MC/research/datasets/*.xlsx
 /queueless-MC/defect_remediation_estimation_service/*.xlsx
 /queueless-MC/*.csv
-/queueless-MC/*.py
+# /queueless-MC/*.py
 /queueless-MC/fWF_estimation/defects.py
 
 # IPython
