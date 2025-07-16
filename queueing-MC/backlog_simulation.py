@@ -1,9 +1,19 @@
-import argparse
 import pickle
 import time
 # from defectSimulation_v2 import defectRemediationSimulator
 
 def backlog_simulation(args, defect_simulation, dt):
+    """
+    Simulation of the defect backlog, with or without imported initial state.
+
+    Args
+        :args (argparse parser.parse_args()): parsed input arguments
+        :defect_simulation (instance of class): instance of class DefectRemediationSimulator
+        :dt (float): simulation time step, equivalent to 1/2 the minimum value among histograms (Nyquist sampling theorem)
+    Returns
+        :incoming_defects_dict (dict): tracks the incoming defects generated throughout the simulation (per defect type)
+        :comparison_dict (dict): nested dictionary wrapping main results and defect log for all simulations
+    """
     #### Initialization of remaining variables ####
     trials = args.trials
     if args.check_initial_state == 'True':
