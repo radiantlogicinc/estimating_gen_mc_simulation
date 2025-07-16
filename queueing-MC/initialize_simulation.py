@@ -1,7 +1,18 @@
-import argparse
 from DefectSimulation import DefectRemediationSimulator
 
 def initialize_simulation(args):
+    """
+    Class instantiation and simulation intialization based on input parameters.
+
+    Args
+        :args (argparse parser.parse_args()): parsed input arguments
+    Returns
+        :defect_simulation (instance of class): instance of class DefectRemediationSimulator
+        :defect_type_dict (dict): maps defect types to corresponing poisson rates, skewness and initial_backlogs
+        :generation_distributions (dict): defect incidence rate histograms (per defect type)
+        :remediation_distributions (dict): defect remediation time histograms (per defect type)
+        :dt (float): simulation time step, equivalent to 1/2 the minimum value among histograms (Nyquist sampling theorem)
+    """
     #### Initialization variables ####
     defect_labels = args.defect_labels.split(', ')
     defect_priority = list(map(int, args.defect_priority.split(', ')))
