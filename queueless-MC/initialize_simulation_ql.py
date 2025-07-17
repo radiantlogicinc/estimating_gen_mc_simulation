@@ -2,6 +2,19 @@ import polars as pl
 import pickle
 
 def initialize_simulation(args):
+    """
+    Initializes delta table simulation with empirical log data
+    
+    Args
+        :args (str):
+    Returns
+        :log_df (Polars DataFrame):
+        :deltas_df (Polars DataFrame):
+        :empirical_dict (dict):
+        :incoming_dict (dict):
+        :outgoing_dict (dict):
+        :control_types (list):
+    """
     log_df = pl.read_csv(args.path_logs)
     log_df = log_df.with_columns(pl.col('Timestamp').str.strptime(pl.Datetime, '%Y-%d-%m %H:%M:%S'))
     log_df = log_df.with_columns(pl.col("Timestamp").dt.date().alias("Date"))

@@ -1,16 +1,13 @@
 [project]
 name = "queueless-mc"
 version = "0.1.0"
-description = "Add your description here"
-readme = "README.md"
-requires-python = ">=3.9"
+description = "Timeline and state change estimations with a queueless black box generalized Monte Carlo method based on empirical data"
+readme = "../README.md"
+requires-python = ">=3.12"
 dependencies = [
-    "ipython>=8.18.1",
-    "markdown>=3.8.2",
-    "matplotlib>=3.9.4",
-    "numpy>=2.0.2",
-    "pandas>=2.3.0",
+    "argparse>=1.4.0",
+    "matplotlib>=3.10.3",
+    "numpy>=2.3.1",
     "polars>=1.31.0",
-    "rich>=14.0.0",
-    "scipy>=1.13.1",
+    "scipy>=1.16.0",
 ]

@@ -79,6 +79,7 @@ target/
 .ipynb_checkpoints
 /queueless-MC/research/figures
 /queueless-MC/*.png
+/queueless-MC/figures/*.png
 /queueless-MC/research/datasets/*.xlsx
 /queueless-MC/defect_remediation_estimation_service/*.xlsx
 /queueless-MC/*.csv

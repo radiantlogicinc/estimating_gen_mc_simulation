@@ -16,6 +16,15 @@ class LogEntry:
         self.sub_deltas_dict = sub_deltas_dict
 
     def check_state(self, empirical_dict):
+        """
+        Initializes delta table simulation with empirical log data
+        
+        Args
+            :empirical_dict (dict):
+        Returns
+            :sub_deltas_dict (dict):
+            :empirical_dict (dict): (adjusted)
+        """
         if self.state == 'new':
             ## append to delta table with defect_ID and control_type
             self.sub_deltas_dict[self.defect_id] = {'Defect_ID': self.defect_id,
@@ -42,6 +51,15 @@ class LogEntry:
 
 
     def state_assign(self, empirical_dict):
+        """
+        Initializes delta table simulation with empirical log data
+        
+        Args
+            :empirical_dict (dict):
+        Returns
+            :delta_new_assign (Polars datetime):
+            :empirical_dict (dict): (adjusted)
+        """
         timestamp_new = self.sub_log_df.filter(pl.col('Defect_ID')==self.defect_id, pl.col('State')=='new')['Timestamp'][0]
         timestamp_assign = self.sub_log_df.filter(pl.col('Defect_ID')==self.defect_id, pl.col('State')==self.state)['Timestamp'][0]
         
@@ -53,6 +71,15 @@ class LogEntry:
         return delta_new_assign, empirical_dict
     
     def state_inprogress(self, empirical_dict):
+        """
+        Initializes delta table simulation with empirical log data
+        
+        Args
+            :empirical_dict (dict):
+        Returns
+            :delta_assign_inprogress (Polars datetime):
+            :empirical_dict (dict): (adjusted)
+        """
         timestamp_assign = self.sub_log_df.filter(pl.col('Defect_ID')==self.defect_id, pl.col('State')=='assign')['Timestamp'][0]
         timestamp_inprogress = self.sub_log_df.filter(pl.col('Defect_ID')==self.defect_id, pl.col('State')==self.state)['Timestamp'][0]
         
@@ -64,6 +91,16 @@ class LogEntry:
         return delta_assign_inprogress, empirical_dict
     
     def state_closed(self, empirical_dict):
+        """
+        Initializes delta table simulation with empirical log data
+        
+        Args
+            :empirical_dict (dict):
+        Returns
+            :delta_inprogress_closed (Polars datetime):
+            :delta_new_closed (Polars datetime):
+            :empirical_dict (dict): (adjusted)
+        """
         timestamp_new = self.sub_log_df.filter(pl.col('Defect_ID')==self.defect_id, pl.col('State')=='new')['Timestamp'][0]
         timestamp_inprogress = self.sub_log_df.filter(pl.col('Defect_ID')==self.defect_id, pl.col('State')=='in-progress')['Timestamp'][0]
         timestamp_closed = self.sub_log_df.filter(pl.col('Defect_ID')==self.defect_id, pl.col('State')==self.state)['Timestamp'][0]
@@ -78,6 +115,15 @@ class LogEntry:
         return delta_inprogress_closed, delta_new_closed, empirical_dict
     
     def compute_delta(self, timestamp_older, timestamp_newer):
+        """
+        Initializes delta table simulation with empirical log data
+        
+        Args
+            :timestamp_older (Polars datetime):
+            :timestamp_newer (Polars datetime):
+        Returns
+            :delta_timestamps (Polars datetime):
+        """
         ## Computes the time delta (in hrs) as timestamp_newer - timestamp_older
         delta_timestamps = timestamp_newer - timestamp_older
         delta_timestamps = round(delta_timestamps.total_seconds()/3600, 3)
@@ -94,6 +140,9 @@ class BuildHistories:
         self.empirical_dict = empirical_dict
 
     def update_figures(self):
+        """
+        Initializes delta table simulation with empirical log data
+        """
         fig, axs = plt.subplots(1, 4, figsize=(16, 4))
         axs[0].plot(range(1,len(self.sub_deltas_df.select('Delta_New_Assign'))+1), self.sub_deltas_df.select('Delta_New_Assign'), 'k-o', markersize=6)
         axs[0].set_ylabel('time (hrs)')
@@ -113,6 +162,13 @@ class BuildHistories:
         plt.close()
 
     def update_incoming(self):
+        """
+        Initializes delta table simulation with empirical log data
+        
+        Returns
+            :incoming_dict (dict):
+            :empirical_dict (dict):
+        """
         for day in self.sub_log_df_inc["Date"].unique(): # TO DO - how to track date outside of logs (i.e. if no state changes/defects generated, dates do not appear in logs 
             sub_log_df_inc_date = self.sub_log_df_inc.filter(pl.col('Date') == day)['Hour'].value_counts()
             incoming_defects = [sub_log_df_inc_date.filter(pl.col('Hour') == i)['count'][0] if i in list(sub_log_df_inc_date.select('Hour'))[0] else 0 for i in range(24)]
@@ -121,6 +177,13 @@ class BuildHistories:
         return self.incoming_dict, self.empirical_dict
     
     def update_outgoing(self):
+        """
+        Initializes delta table simulation with empirical log data
+        
+        Returns
+            :outgoing_dict (dict):
+            :empirical_dict (dict):
+        """
         for day in self.sub_log_df_out["Date"].unique(): # will never be empty 
             sub_log_df_out_date = self.sub_log_df_out.filter(pl.col('Date') == day)['Hour'].value_counts()
             outgoing_defects = [sub_log_df_out_date.filter(pl.col('Hour') == i)['count'][0] if i in list(sub_log_df_out_date.select('Hour'))[0] else 0 for i in range(24)]
@@ -129,6 +192,9 @@ class BuildHistories:
         return self.outgoing_dict, self.empirical_dict
 
     def update_distributions(self):
+        """
+        Initializes delta table simulation with empirical log data
+        """
         csfont = {'fontname':'Arial'}
         fig, axs = plt.subplots (1, 5, figsize=(16,4))
         # incoming_per_hour histogram
@@ -161,7 +227,7 @@ class BuildHistories:
         axs[3].set_title('Delta_InProgress_Closed', loc='left', fontsize=12, **csfont)
         axs[4].set_title('Delta_New_Closed', loc='left', fontsize=12, **csfont)
         
-        # plt.savefig(f'figures/{self.control_type}_histograms_{date.today()}.png', bbox_inches='tight')
+        plt.savefig(f'figures/{self.control_type}_histograms_{date.today()}.png', bbox_inches='tight')
         plt.close()
 
 
@@ -171,6 +237,15 @@ class DefectType(ABC):
         self.sub_log_df = sub_log_df
 
     def update_delta_table(self, empirical_dict):
+        """
+        Initializes delta table simulation with empirical log data
+        
+        Args
+            :empirical_dict (dict):
+        Returns
+            :sub_deltas_df (Polars DataFrame):
+            :empirical_dict (dict): (adjusted)
+        """
         processing_queue = queue.Queue()
         self.sub_deltas_df = pl.DataFrame(schema=[('Defect_ID',int),('Control_Type',str),('Delta_New_Assign',float),('Delta_Assign_InProgress',float),('Delta_InProgress_Closed',float), ('Delta_New_Closed',float)])
         sub_deltas_dict = {}
@@ -188,6 +263,19 @@ class DefectType(ABC):
         return self.sub_deltas_df, empirical_dict
 
     def update_histograms(self, deltas_df, incoming_dict, outgoing_dict, empirical_dict):
+        """
+        Initializes delta table simulation with empirical log data
+        
+        Args
+            :deltas_df (Polars DataFrame):
+            :incoming_dict (dict):
+            :outgoing_dict (dict):
+            :empirical_dict (dict):
+        Returns
+            :incoming_dict (dict): (adjusted)
+            :outgoing_dict (dict): (adjusted)
+            :empirical_dict (dict): (adjusted)
+        """
         sub_deltas_df = deltas_df.filter(pl.col('Control_Type') == self.control_type).drop_nans()
         histories = BuildHistories(self.control_type, self.sub_log_df, sub_deltas_df, incoming_dict, outgoing_dict, empirical_dict)
         if sub_deltas_df.is_empty() == 0:

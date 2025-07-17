@@ -16,15 +16,8 @@ def backlog_simulation(args, defect_simulation, dt):
     """
     #### Initialization of remaining variables ####
     trials = args.trials
-    if args.check_initial_state == 'True':
-        check_initial_state = True
-    else:
-        check_initial_state = False
-    if args.export_final_state == 'True':
-        export_final_state = True
-    else:
-        export_final_state = False
-
+    check_initial_state = args.check_initial_state == 'True'
+    export_final_state = args.export_final_state == 'True'
 
     #### LOAD IN EXISTING STATE ####
     if check_initial_state:

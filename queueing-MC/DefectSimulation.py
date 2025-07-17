@@ -67,16 +67,17 @@ class DefectRemediationSimulator:
         Returns
             :defect_type_dict (dict): maps defect types to corresponing poisson rates, skewness and initial_backlogs
         """
-        defect_type_dict = {}
-        for name in self.defect_types:
-            defect_type_dict[name] = {'priority': self.defect_priority[name],
-                                      'skewness_outgoing': self.skewness_outgoing[name], 
-                                      'skewness_incoming': self.skewness_incoming[name], 
-                                      'maxValue_incoming': self.maxValue_incoming[name], 
-                                      'maxValue_outgoing': self.maxValue_outgoing[name],
-                                      'initial': self.initial_backlogs[name]}
-            
-
+        defect_type_dict = {
+            name: {
+                'priority': self.defect_priority[name],
+                'skewness_outgoing': self.skewness_outgoing[name],
+                'skewness_incoming': self.skewness_incoming[name],
+                'maxValue_incoming': self.maxValue_incoming[name],
+                'maxValue_outgoing': self.maxValue_outgoing[name],
+                'initial': self.initial_backlogs[name],
+            }
+            for name in self.defect_types
+        }    
         self.defect_type_dict = defect_type_dict
         return defect_type_dict
     
@@ -175,8 +176,8 @@ class DefectRemediationSimulator:
         """
         #### INITIALIZATION OF THE BACKLOG ####
         for key in self.defect_type_dict.keys():
-            for i in range(self.defect_type_dict[key]['initial']):
-                defect_ID = 'ID_' + str(np.random.randint(1,1000000000))
+            for _ in range(self.defect_type_dict[key]['initial']):
+                defect_ID = f'ID_{str(np.random.randint(1, 1000000000))}'
                 remediation_time = np.random.choice(self.remediation_distributions[key], size=1, replace=True)
                 defect_log[defect_ID] = {'defect_type': key, 't_created': t_start, 'remediation_time': remediation_time}
                 hq.heappush(backlog_queue, (self.defect_type_dict[key]['priority'], defect_ID)) # tuple (priority level, defect ID tag) will be sorted in heap based on priority
@@ -229,7 +230,7 @@ class DefectRemediationSimulator:
         """
         for key in incoming_defects_tracker.keys():
             incoming_defects_stored[key].append(incoming_defects_tracker[key][0])
-            defect_ID = ['ID_' + str(np.random.randint(1,1000000000)) for _ in range(int(incoming_defects_tracker[key][0]))] ### one defect ID per defect that came in in that hour
+            defect_ID = [f'ID_{str(np.random.randint(1, 1000000000))}' for _ in range(int(incoming_defects_tracker[key][0]))] ### one defect ID per defect that came in in that hour
             priority_level = [self.defect_type_dict[key]['priority'] for _ in range(int(incoming_defects_tracker[key][0]))]
             remediation_time = [np.random.choice(self.remediation_distributions[key], size=1, replace=True) for _ in range(int(incoming_defects_tracker[key][0]))]
             defect_log.update({defect_ID[i]: {'defect_type': key, 't_created': t, 'remediation_time': remediation_time[i]} for i in range(int(incoming_defects_tracker[key][0]))})
@@ -254,7 +255,7 @@ class DefectRemediationSimulator:
             :backlog_queue (list): heap (priority queue) of backlogged defects (adjusted)
         """
         if queue_dict['processing_queue{0}'.format(n)].qsize() < self.resources_qmax:
-            for i in range(self.resources_qmax - queue_dict['processing_queue{0}'.format(n)].qsize()):
+            for _ in range(self.resources_qmax - queue_dict['processing_queue{0}'.format(n)].qsize()):
                 with contextlib.suppress(IndexError):
                     if defect_pull := hq.heappop(backlog_queue)[1]:
                         queue_dict['processing_queue{0}'.format(n)].put(defect_pull, block=False)
