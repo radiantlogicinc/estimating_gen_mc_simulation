@@ -1,5 +1,6 @@
 import polars as pl
 import time
+import pickle
 import argparse
 from initialize_simulation_ql import initialize_simulation
 from delta_table_simulation import delta_table_simulation
@@ -23,9 +24,12 @@ if __name__ == "__main__":
     for control_type in control_types:
         deltas_df, empirical_dict, incoming_dict, outgoing_dict = delta_table_simulation(control_type, log_df, deltas_df, empirical_dict, incoming_dict, outgoing_dict)
 
-    print(deltas_df)        
+    print(deltas_df)
 
-
-    
-
-    
+    # export states as pickled json or csv
+    for item in ['empirical_dict', 'incoming_dict', 'outgoing_dict', 'deltas_df']:
+        if item != 'deltas_df':
+            with open(f'simulations/{item}.pkl', 'wb') as f:
+                pickle.dump(eval(item), f)
+        else:
+            deltas_df.write_csv('simulations/deltas_df.csv')

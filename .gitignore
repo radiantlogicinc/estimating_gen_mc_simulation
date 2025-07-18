@@ -78,6 +78,9 @@ target/
 # Jupyter Notebook
 .ipynb_checkpoints
 /queueless-MC/research/figures
+/queueless-MC/research/*.pkl
+/queueless-MC/research/*.csv
+/queueless-MC/research/figures
 /queueless-MC/*.png
 /queueless-MC/figures/*.png
 /queueless-MC/research/datasets/*.xlsx

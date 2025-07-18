@@ -17,13 +17,13 @@ class LogEntry:
 
     def check_state(self, empirical_dict):
         """
-        Initializes delta table simulation with empirical log data
+        For each row of log data, identifies state change and computes time delta between state changes if applicable
         
         Args
-            :empirical_dict (dict):
+            :empirical_dict (dict): tracks incoming/outgoing and delta histograms from empirical data (per defect type)
         Returns
-            :sub_deltas_dict (dict):
-            :empirical_dict (dict): (adjusted)
+            :sub_deltas_dict (dict): intermediary containing single row corresponding to one defect, to be appended to deltas_df
+            :empirical_dict (dict): tracks incoming/outgoing and delta histograms from empirical data (per defect type) (adjusted)
         """
         if self.state == 'new':
             ## append to delta table with defect_ID and control_type
@@ -52,13 +52,13 @@ class LogEntry:
 
     def state_assign(self, empirical_dict):
         """
-        Initializes delta table simulation with empirical log data
+        Computes time difference between 'new' and 'assign' states in log data
         
         Args
-            :empirical_dict (dict):
+            :empirical_dict (dict): tracks incoming/outgoing and delta histograms from empirical data (per defect type)
         Returns
-            :delta_new_assign (Polars datetime):
-            :empirical_dict (dict): (adjusted)
+            :delta_new_assign (Polars datetime): time difference between 'new' and 'assign' states in log data
+            :empirical_dict (dict): tracks incoming/outgoing and delta histograms from empirical data (per defect type) (adjusted)
         """
         timestamp_new = self.sub_log_df.filter(pl.col('Defect_ID')==self.defect_id, pl.col('State')=='new')['Timestamp'][0]
         timestamp_assign = self.sub_log_df.filter(pl.col('Defect_ID')==self.defect_id, pl.col('State')==self.state)['Timestamp'][0]
@@ -72,13 +72,13 @@ class LogEntry:
     
     def state_inprogress(self, empirical_dict):
         """
-        Initializes delta table simulation with empirical log data
+        Computes time difference between 'assign' and 'in-progress' states in log data
         
         Args
-            :empirical_dict (dict):
+            :empirical_dict (dict): tracks incoming/outgoing and delta histograms from empirical data (per defect type)
         Returns
-            :delta_assign_inprogress (Polars datetime):
-            :empirical_dict (dict): (adjusted)
+            :delta_assign_inprogress (Polars datetime): time difference between 'assign' and 'in-progress' states in log data
+            :empirical_dict (dict): tracks incoming/outgoing and delta histograms from empirical data (per defect type) (adjusted)
         """
         timestamp_assign = self.sub_log_df.filter(pl.col('Defect_ID')==self.defect_id, pl.col('State')=='assign')['Timestamp'][0]
         timestamp_inprogress = self.sub_log_df.filter(pl.col('Defect_ID')==self.defect_id, pl.col('State')==self.state)['Timestamp'][0]
@@ -92,14 +92,14 @@ class LogEntry:
     
     def state_closed(self, empirical_dict):
         """
-        Initializes delta table simulation with empirical log data
+        Computes time difference between 'in-progress' and 'closed', and 'new' and 'closed' states in log data
         
         Args
-            :empirical_dict (dict):
+            :empirical_dict (dict): tracks incoming/outgoing and delta histograms from empirical data (per defect type)
         Returns
-            :delta_inprogress_closed (Polars datetime):
-            :delta_new_closed (Polars datetime):
-            :empirical_dict (dict): (adjusted)
+            :delta_inprogress_closed (Polars datetime): time difference between 'in-progress' and 'closed' states in log data
+            :delta_new_closed (Polars datetime): time difference between 'new' and 'closed' states in log data
+            :empirical_dict (dict): tracks incoming/outgoing and delta histograms from empirical data (per defect type) (adjusted)
         """
         timestamp_new = self.sub_log_df.filter(pl.col('Defect_ID')==self.defect_id, pl.col('State')=='new')['Timestamp'][0]
         timestamp_inprogress = self.sub_log_df.filter(pl.col('Defect_ID')==self.defect_id, pl.col('State')=='in-progress')['Timestamp'][0]
@@ -116,13 +116,13 @@ class LogEntry:
     
     def compute_delta(self, timestamp_older, timestamp_newer):
         """
-        Initializes delta table simulation with empirical log data
+        Computes time difference between two timestamps
         
         Args
-            :timestamp_older (Polars datetime):
-            :timestamp_newer (Polars datetime):
+            :timestamp_older (Polars datetime): older of two timestamps for computing time difference
+            :timestamp_newer (Polars datetime): more recent of two timestamps for computing time difference
         Returns
-            :delta_timestamps (Polars datetime):
+            :delta_timestamps (Polars datetime): time difference between two timestamps 
         """
         ## Computes the time delta (in hrs) as timestamp_newer - timestamp_older
         delta_timestamps = timestamp_newer - timestamp_older
@@ -141,7 +141,7 @@ class BuildHistories:
 
     def update_figures(self):
         """
-        Initializes delta table simulation with empirical log data
+        Updates timeline figures tracking evolution of time deltas (per defect type)
         """
         fig, axs = plt.subplots(1, 4, figsize=(16, 4))
         axs[0].plot(range(1,len(self.sub_deltas_df.select('Delta_New_Assign'))+1), self.sub_deltas_df.select('Delta_New_Assign'), 'k-o', markersize=6)
@@ -163,11 +163,11 @@ class BuildHistories:
 
     def update_incoming(self):
         """
-        Initializes delta table simulation with empirical log data
+        Measures and stores incoming defects per hour (per defect type) 
         
         Returns
-            :incoming_dict (dict):
-            :empirical_dict (dict):
+            :incoming_dict (dict): tracks incoming defects per hour (per defect type)
+            :empirical_dict (dict): tracks incoming/outgoing and delta histograms from empirical data (per defect type)
         """
         for day in self.sub_log_df_inc["Date"].unique(): # TO DO - how to track date outside of logs (i.e. if no state changes/defects generated, dates do not appear in logs 
             sub_log_df_inc_date = self.sub_log_df_inc.filter(pl.col('Date') == day)['Hour'].value_counts()
@@ -178,11 +178,11 @@ class BuildHistories:
     
     def update_outgoing(self):
         """
-        Initializes delta table simulation with empirical log data
+        Measures and stores outgoing defects per hour (per defect type)
         
         Returns
-            :outgoing_dict (dict):
-            :empirical_dict (dict):
+            :outgoing_dict (dict): tracks outgoing defects per hour (per defect type)
+            :empirical_dict (dict): tracks incoming/outgoing and delta histograms from empirical data (per defect type)
         """
         for day in self.sub_log_df_out["Date"].unique(): # will never be empty 
             sub_log_df_out_date = self.sub_log_df_out.filter(pl.col('Date') == day)['Hour'].value_counts()
@@ -193,7 +193,7 @@ class BuildHistories:
 
     def update_distributions(self):
         """
-        Initializes delta table simulation with empirical log data
+        Updates empirical log data histograms (per defect type)
         """
         csfont = {'fontname':'Arial'}
         fig, axs = plt.subplots (1, 5, figsize=(16,4))
@@ -238,13 +238,13 @@ class DefectType(ABC):
 
     def update_delta_table(self, empirical_dict):
         """
-        Initializes delta table simulation with empirical log data
+        Triggers delta table update tracking time differences between state changes (per defect)
         
         Args
-            :empirical_dict (dict):
+            :empirical_dict (dict): tracks incoming/outgoing and delta histograms from empirical data (per defect type)
         Returns
-            :sub_deltas_df (Polars DataFrame):
-            :empirical_dict (dict): (adjusted)
+            :sub_deltas_df (Polars DataFrame): subset of deltas_df (e.g. single control type)
+            :empirical_dict (dict): tracks incoming/outgoing and delta histograms from empirical data (per defect type) (adjusted)
         """
         processing_queue = queue.Queue()
         self.sub_deltas_df = pl.DataFrame(schema=[('Defect_ID',int),('Control_Type',str),('Delta_New_Assign',float),('Delta_Assign_InProgress',float),('Delta_InProgress_Closed',float), ('Delta_New_Closed',float)])
@@ -264,17 +264,17 @@ class DefectType(ABC):
 
     def update_histograms(self, deltas_df, incoming_dict, outgoing_dict, empirical_dict):
         """
-        Initializes delta table simulation with empirical log data
+        Triggers empirical log data histograms update (per defect type)
         
         Args
-            :deltas_df (Polars DataFrame):
-            :incoming_dict (dict):
-            :outgoing_dict (dict):
-            :empirical_dict (dict):
+            :deltas_df (Polars DataFrame): delta table tracking time deltas between state changes (per defect)
+            :incoming_dict (dict): tracks incoming defects per hour (per defect type)
+            :outgoing_dict (dict): tracks outgoing defects per hour (per defect type)
+            :empirical_dict (dict): tracks incoming/outgoing and delta histograms from empirical data (per defect type)
         Returns
-            :incoming_dict (dict): (adjusted)
-            :outgoing_dict (dict): (adjusted)
-            :empirical_dict (dict): (adjusted)
+            :incoming_dict (dict): tracks incoming defects per hour (per defect type) (adjusted)
+            :outgoing_dict (dict): tracks outgoing defects per hour (per defect type) (adjusted)
+            :empirical_dict (dict): tracks incoming/outgoing and delta histograms from empirical data (per defect type) (adjusted)
         """
         sub_deltas_df = deltas_df.filter(pl.col('Control_Type') == self.control_type).drop_nans()
         histories = BuildHistories(self.control_type, self.sub_log_df, sub_deltas_df, incoming_dict, outgoing_dict, empirical_dict)
