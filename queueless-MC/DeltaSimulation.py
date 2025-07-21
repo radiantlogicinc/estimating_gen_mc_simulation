@@ -5,6 +5,7 @@ import contextlib
 import matplotlib.pyplot as plt
 from datetime import date
 from abc import ABC
+from ..utils import VisualizationFunctions
 
 
 class LogEntry:
@@ -138,24 +139,25 @@ class BuildHistories:
         self.incoming_dict = incoming_dict
         self.outgoing_dict = outgoing_dict
         self.empirical_dict = empirical_dict
+        self.VisualizationFunctions = VisualizationFunctions()
 
     def update_figures(self):
         """
         Updates timeline figures tracking evolution of time deltas (per defect type)
         """
         fig, axs = plt.subplots(1, 4, figsize=(16, 4))
-        axs[0].plot(range(1,len(self.sub_deltas_df.select('Delta_New_Assign'))+1), self.sub_deltas_df.select('Delta_New_Assign'), 'k-o', markersize=6)
-        axs[0].set_ylabel('time (hrs)')
-        axs[0].set_title('Delta_New_Assign', loc='left', fontsize=10)
-
-        axs[1].plot(range(1,len(self.sub_deltas_df.select('Delta_Assign_InProgress'))+1), self.sub_deltas_df.select('Delta_Assign_InProgress'), 'k-o', markersize=6)
-        axs[1].set_title('Delta_Assign_InProgress', loc='left', fontsize=10)
-
-        axs[2].plot(range(1,len(self.sub_deltas_df.select('Delta_InProgress_Closed'))+1), self.sub_deltas_df.select('Delta_InProgress_Closed'), 'k-o', markersize=6)
-        axs[2].set_title('Delta_InProgress_Closed', loc='left', fontsize=10)
-
-        axs[3].plot(range(1,len(self.sub_deltas_df.select('Delta_New_Closed'))+1), self.sub_deltas_df.select('Delta_New_Closed'), 'k-o', markersize=6)
-        axs[3].set_title('Delta_New_Closed', loc='left', fontsize=10)
+        deltas = ['Delta_New_Assign', 'Delta_Assign_InProgress', 'Delta_InProgress_Closed', 'Delta_New_Closed']
+        ylabels = ['time (hrs)', None, None, None]
+        for index in range(4):
+            xdata = range(1,len(self.sub_deltas_df.select(deltas[index])) + 1)
+            ydata = self.sub_deltas_df.select(deltas[index])
+            fig, axs = self.VisualizationFunctions.visualize_timeline(fig,
+                                                                      axs,
+                                                                      index,
+                                                                      xdata,
+                                                                      ydata,
+                                                                      ylabel=ylabels[index],
+                                                                      title=deltas[index])
     
         fig.text(0.5, 0.95, f'{self.control_type}', ha='center', fontsize=12)
         plt.savefig(f'figures/{self.control_type}_fig_{date.today()}.png', bbox_inches='tight')
@@ -169,7 +171,7 @@ class BuildHistories:
             :incoming_dict (dict): tracks incoming defects per hour (per defect type)
             :empirical_dict (dict): tracks incoming/outgoing and delta histograms from empirical data (per defect type)
         """
-        for day in self.sub_log_df_inc["Date"].unique(): # TO DO - how to track date outside of logs (i.e. if no state changes/defects generated, dates do not appear in logs 
+        for day in self.sub_log_df_inc["Date"].unique():
             sub_log_df_inc_date = self.sub_log_df_inc.filter(pl.col('Date') == day)['Hour'].value_counts()
             incoming_defects = [sub_log_df_inc_date.filter(pl.col('Hour') == i)['count'][0] if i in list(sub_log_df_inc_date.select('Hour'))[0] else 0 for i in range(24)]
             self.incoming_dict[self.control_type].update({day: incoming_defects})
@@ -191,42 +193,47 @@ class BuildHistories:
             self.empirical_dict[self.control_type]['outgoing_per_hour'] = self.empirical_dict[self.control_type]['outgoing_per_hour'] + self.outgoing_dict[self.control_type][day]
         return self.outgoing_dict, self.empirical_dict
 
-    def update_distributions(self):
+    def update_delta_distributions(self):
         """
-        Updates empirical log data histograms (per defect type)
+        Updates empirical log data delta histograms (per defect type)
         """
-        csfont = {'fontname':'Arial'}
-        fig, axs = plt.subplots (1, 5, figsize=(16,4))
+        fig, axs = plt.subplots (1, 4, figsize=(16,4))
+        deltas = ['Delta_New_Assign', 'Delta_Assign_InProgress', 'Delta_InProgress_Closed', 'Delta_New_Closed']
+        for index in range(4):
+            data = self.empirical_dict[self.control_type][deltas[index].lower()]
+            fig, axs = self.VisualizationFunctions.visualize_histograms_theory(fig,
+                                                                               axs,
+                                                                               index,
+                                                                               data,
+                                                                               label=None,
+                                                                               title=deltas[index],
+                                                                               color='#C21445')
+        plt.savefig(f'figures/{self.control_type}_delta_histograms_{date.today()}.png', bbox_inches='tight')
+        plt.close()
+    
+    def update_incoming_outgoing_distributions(self):
+        """
+        Updates empirical log data incoming + outgoing histograms (per defect type)
+        """
+        fig, axs = plt.subplots (1, 2, figsize=(16,4))
         # incoming_per_hour histogram
         data_incoming = np.array(self.empirical_dict[self.control_type]['incoming_per_hour'])
-        unique_values = np.unique(data_incoming)
-        d = 1 if np.all(unique_values) == 0 else np.diff(unique_values).min()
-        left_of_first_bin = data_incoming.min() - float(d)/2
-        right_of_last_bin = data_incoming.max() + float(d)/2
-        axs[0].hist(data_incoming, np.arange(left_of_first_bin, right_of_last_bin + d, d), label='incoming', color='maroon', alpha=0.2, edgecolor='black', linewidth=1.5, density=True)
-        axs[0].set_title(f'{self.control_type}', loc='left', fontsize=14, **csfont)
-    
-        # outgoing_per_hour histogram 
+        fig, axs = self.VisualizationFunctions.visualize_histograms_theory(fig,
+                                                                           axs,
+                                                                           0,
+                                                                           data_incoming,
+                                                                           label='incoming',
+                                                                           title=f'{self.control_type} incoming [/hr]',
+                                                                           color='#C21445')
+        # outgoing_per_hour histogram
         data_outgoing = np.array(self.empirical_dict[self.control_type]['outgoing_per_hour'])
-        unique_values = np.unique(data_outgoing)
-        d = 1 if np.all(unique_values) == 0 else np.diff(unique_values).min()
-        left_of_first_bin = data_outgoing.min() - float(d)/2
-        right_of_last_bin = data_outgoing.max() + float(d)/2
-        axs[0].hist(data_outgoing, np.arange(left_of_first_bin, right_of_last_bin + d, d), label='outgoing', histtype='step', linewidth=1.5, density=True)
-        # axs[index][0].set_title(f'{value}', loc='left', fontsize=14, **csfont)
-        axs[0].legend(fontsize='small')
-        
-        # delta histograms
-        axs[1].hist(self.empirical_dict[self.control_type]['delta_new_assign'], bins=3, edgecolor='black', linewidth=1.5, density=True)
-        axs[2].hist(self.empirical_dict[self.control_type]['delta_assign_inprogress'], bins=3, edgecolor='black', linewidth=1.5, density=True)
-        axs[3].hist(self.empirical_dict[self.control_type]['delta_inprogress_closed'], bins=3, edgecolor='black', linewidth=1.5, density=True)
-        axs[4].hist(self.empirical_dict[self.control_type]['delta_new_closed'], bins=3, edgecolor='black', linewidth=1.5, density=True)
-    
-        axs[1].set_title('Delta_New_Assign', loc='left', fontsize=12, **csfont)
-        axs[2].set_title('Delta_Assign_InProgress', loc='left', fontsize=12, **csfont)
-        axs[3].set_title('Delta_InProgress_Closed', loc='left', fontsize=12, **csfont)
-        axs[4].set_title('Delta_New_Closed', loc='left', fontsize=12, **csfont)
-        
+        fig, axs = self.VisualizationFunctions.visualize_histograms_theory(fig,
+                                                                           axs,
+                                                                           1,
+                                                                           data_outgoing,
+                                                                           label='outgoing',
+                                                                           title=f'{self.control_type} outgoing [/hr]',
+                                                                           color='#C21445')
         plt.savefig(f'figures/{self.control_type}_histograms_{date.today()}.png', bbox_inches='tight')
         plt.close()
 

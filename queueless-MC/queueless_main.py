@@ -23,7 +23,8 @@ if __name__ == "__main__":
     log_df, deltas_df, empirical_dict, incoming_dict, outgoing_dict, control_types = initialize_simulation(args)
     for control_type in control_types:
         deltas_df, empirical_dict, incoming_dict, outgoing_dict = delta_table_simulation(control_type, log_df, deltas_df, empirical_dict, incoming_dict, outgoing_dict)
-
+    
+    # visualize incoming / outgoing distributions
     print(deltas_df)
 
     # export states as pickled json or csv
@@ -32,4 +33,4 @@ if __name__ == "__main__":
             with open(f'simulations/{item}.pkl', 'wb') as f:
                 pickle.dump(eval(item), f)
         else:
-            deltas_df.write_csv('simulations/deltas_df.csv')
+            deltas_df.sort('Defect_ID').write_csv('simulations/deltas_df.csv')
