@@ -4,7 +4,7 @@ class VisualizationFunctions:
     def __init__(self):
         pass
 
-    def visualize_histograms_theory(self, fig, axs, index, data, label=None, title=None, color='black'):
+    def visualize_histograms_theory(self, fig, axs, index, data, label=None, title=None, color='black', step=False):
         csfont = {'fontname':'Arial'}
         data = np.array(data)
         unique_values = np.unique(data)
@@ -12,13 +12,23 @@ class VisualizationFunctions:
         left_of_first_bin = data.min() - float(d)/2
         right_of_last_bin = data.max() + float(d)/2
 
-        axs[index].hist(data,
+        if step:
+            axs[index].hist(data,
                         np.arange(left_of_first_bin, right_of_last_bin + d, d),
                         label=label,
-                        histtype='step',
                         linewidth=1.5,
                         density=True,
-                        color=color)
+                        color=color,
+                        histtype='step')
+        else:
+            axs[index].hist(data,
+                            np.arange(left_of_first_bin, right_of_last_bin + d, d),
+                            label=label,
+                            linewidth=1.5,
+                            density=True,
+                            color=color,
+                            alpha=0.5,
+                            edgecolor='black')
         if title:
             axs[index].set_title(title, loc='left', fontsize=12, **csfont)
         return fig, axs

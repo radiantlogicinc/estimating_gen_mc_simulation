@@ -1,4 +1,3 @@
-import numpy as np
 import polars as pl
 import sys
 from ControlTypes import *
