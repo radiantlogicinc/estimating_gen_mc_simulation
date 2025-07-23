@@ -6,23 +6,18 @@ class ControlType:
     def __init__(self, control_type: str):
         self.control_type = control_type
         
-        # info_df = pl.read_json('fastWorkFlow_test_v2.json', schema={"item":pl.String, "control_type":pl.String, "time_span":pl.String, "mean":pl.String})
-        # # info_df = info_df.with_columns(pl.col('time_span').cast(pl.Int64).alias('time_span'))
-        # info_df = info_df.with_columns(pl.col('mean').cast(pl.Float64).alias('mean'))
-        # self.info_df = info_df.filter(pl.col("control_type") == self.control_type)
+        info_df = pl.read_json('defect_remediation_app/application/fastWorkFlow_test_v2.json', schema={"item":pl.String, "control_type":pl.String, "time_span":pl.String, "mean":pl.String})
+        # info_df = info_df.with_columns(pl.col('time_span').cast(pl.Int64).alias('time_span'))
+        info_df = info_df.with_columns(pl.col('mean').cast(pl.Float64).alias('mean'))
+        self.info_df = info_df.filter(pl.col("control_type") == self.control_type)
 
     def generated_per_day(self, time_span: str):
         """
         Mean # of defects of certain control type being generated per day
         Args: time_span (str): "1" -> daily, "2" -> quarterly, "3" -> all time
         """
-        print(time_span)
-        info_df = pl.read_json('fastWorkFlow_test_v2.json', schema={"item":pl.String, "control_type":pl.String, "time_span":pl.String, "mean":pl.String})
-        # info_df = info_df.with_columns(pl.col('time_span').cast(pl.Int64).alias('time_span'))
-        info_df = info_df.with_columns(pl.col('mean').cast(pl.Float64).alias('mean'))
-        info_df = info_df.filter(pl.col("control_type") == self.control_type)
-
-        value = info_df.filter(
+        value = self.info_df.filter(
+            pl.col('item') == f"generated_per_day_ACC03_{time_span}",
             pl.col('time_span') == time_span
             )["mean"]
         if time_span == "1":
@@ -34,11 +29,7 @@ class ControlType:
 
     def waiting_in_backlog(self, time_span: str):
         "Mean waiting time of defects of certain control type in backlog before beginning remediation"
-        info_df = pl.read_json('fastWorkFlow_test_v2.json', schema={"item":pl.String, "control_type":pl.String, "time_span":pl.String, "mean":pl.String})
-        # info_df = info_df.with_columns(pl.col('time_span').cast(pl.Int64).alias('time_span'))
-        info_df = info_df.with_columns(pl.col('mean').cast(pl.Float64).alias('mean'))
-        info_df = info_df.filter(pl.col("control_type") == self.control_type)
-        value = info_df.filter(
+        value = self.info_df.filter(
             pl.col('time_span') == time_span
             )["mean"]
         if time_span == "1":
