@@ -77,6 +77,10 @@ target/
 
 # Jupyter Notebook
 .ipynb_checkpoints
+/queueless-MC/fastWorkflow/*xlsx
+/queueless-MC/fastWorkflow/*ipynb
+/queueless-MC/fastWorkflow/fastWorkFlow_test.json
+/queueless-MC/fastWorkflow/defects.py
 /queueless-MC/research/figures
 /queueless-MC/research/data_points.ipynb
 /queueless-MC/research/*.pkl
