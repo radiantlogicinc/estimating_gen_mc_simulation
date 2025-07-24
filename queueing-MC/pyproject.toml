@@ -1,12 +1,13 @@
 [project]
 name = "queueing-mc"
 version = "0.1.0"
-description = "Add your description here"
-readme = "README.md"
+description = "Timeline estimations with a black box generalized Monte Carlo method for modeling defect remediation as a queueing optimization problem"
+readme = "../README.md"
 requires-python = ">=3.12"
 dependencies = [
     "argparse>=1.4.0",
     "matplotlib>=3.10.3",
     "numpy>=2.2.6",
+    "polars>=1.31.0",
     "scipy>=1.15.3",
 ]

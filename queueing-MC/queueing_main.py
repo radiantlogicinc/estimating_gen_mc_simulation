@@ -1,8 +1,8 @@
 import argparse
-from defectSimulation_v3 import defectRemediationSimulator
+from DefectSimulation import DefectRemediationSimulator
 from initialize_simulation import initialize_simulation
 from backlog_simulation import backlog_simulation
-from visualize_simulation_v2 import visualize_simulation, visualize_generation_distributions, visualize_remediation_distributions
+from visualize_simulation import visualize_simulation, visualize_generation_distributions, visualize_remediation_distributions
 
 
 #### INPUT PARAMETERS ####
