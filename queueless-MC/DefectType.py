@@ -1,8 +1,9 @@
 import polars as pl
 import queue
 import contextlib
-import LogEntry
-import BuildHistories
+import datetime
+from LogEntry import LogEntry
+from BuildHistories import BuildHistories
 from abc import ABC
 
 class DefectType(ABC):
@@ -21,7 +22,15 @@ class DefectType(ABC):
             :empirical_dict (dict): tracks incoming/outgoing and delta histograms from empirical data (per defect type) (adjusted)
         """
         processing_queue = queue.Queue()
-        self.sub_deltas_df = pl.DataFrame(schema=[('Defect_ID',int),('Control_Type',str),('Delta_New_Assign',float),('Delta_Assign_InProgress',float),('Delta_InProgress_Closed',float), ('Delta_New_Closed',float)])
+        self.sub_deltas_df = pl.DataFrame(schema=[('Defect_ID',int),
+                                                  ('Control_Type',str),
+                                                  ('Delta_New_Assign',float),
+                                                  ('Date_Assign', datetime.date),
+                                                  ('Delta_Assign_InProgress',float),
+                                                  ('Date_InProgress', datetime.date),
+                                                  ('Delta_InProgress_Closed',float),
+                                                  ('Delta_New_Closed',float),
+                                                  ('Date_Closed', datetime.date)])
         sub_deltas_dict = {}
         for row in self.sub_log_df.iter_rows():
             with contextlib.suppress(IndexError):

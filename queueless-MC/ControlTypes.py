@@ -1,4 +1,4 @@
-import DefectType
+from DefectType import DefectType
 
 class ACC03(DefectType):
     def __init__(self, sub_log_df_ACC03):

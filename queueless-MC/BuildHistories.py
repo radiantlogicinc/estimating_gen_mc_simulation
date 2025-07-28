@@ -2,7 +2,7 @@ import polars as pl
 import numpy as np
 import matplotlib.pyplot as plt
 from datetime import date
-from ..utils import VisualizationFunctions
+from utils.VisualizationFunctions import VisualizationFunctions
 
 
 class BuildHistories:

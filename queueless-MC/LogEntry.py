@@ -1,4 +1,5 @@
 import polars as pl
+import datetime
 
 class LogEntry:
     def __init__(self, row_id, sub_log_df, sub_deltas_dict):
@@ -23,22 +24,29 @@ class LogEntry:
             self.sub_deltas_dict[self.defect_id] = {'Defect_ID': self.defect_id,
                                                     'Control_Type': self.control_type,
                                                     'Delta_New_Assign': float('nan'),
+                                                    'Date_Assign': datetime.date(2025, 7, 28),
                                                     'Delta_Assign_InProgress': float('nan'),
+                                                    'Date_InProgress': datetime.date(2025, 7, 28),
                                                     'Delta_InProgress_Closed': float('nan'),
                                                     'Delta_New_Closed': float('nan'),
+                                                    'Date_Closed': datetime.date(2025, 7, 28),
                                                    }
 
         elif self.state =='assign':
-            delta_new_assign, empirical_dict = self.state_assign(empirical_dict)
-            self.sub_deltas_dict[self.defect_id].update({'Delta_New_Assign': delta_new_assign})
+            delta_new_assign, date_assign, empirical_dict = self.state_assign(empirical_dict)
+            self.sub_deltas_dict[self.defect_id].update({'Delta_New_Assign': delta_new_assign,
+                                                         'Date_Assign': date_assign})
     
         elif self.state == 'in-progress':
-            delta_assign_inprogress, empirical_dict = self.state_inprogress(empirical_dict)
-            self.sub_deltas_dict[self.defect_id].update({'Delta_Assign_InProgress': delta_assign_inprogress})
+            delta_assign_inprogress, date_inprogress, empirical_dict = self.state_inprogress(empirical_dict)
+            self.sub_deltas_dict[self.defect_id].update({'Delta_Assign_InProgress': delta_assign_inprogress,
+                                                         'Date_InProgress': date_inprogress})
         
         elif self.state == 'closed':
-            delta_inprogress_closed, delta_new_closed, empirical_dict = self.state_closed(empirical_dict)
-            self.sub_deltas_dict[self.defect_id].update({'Delta_InProgress_Closed': delta_inprogress_closed, 'Delta_New_Closed': delta_new_closed})  
+            delta_inprogress_closed, delta_new_closed, date_closed, empirical_dict = self.state_closed(empirical_dict)
+            self.sub_deltas_dict[self.defect_id].update({'Delta_InProgress_Closed': delta_inprogress_closed, 
+                                                         'Delta_New_Closed': delta_new_closed,
+                                                         'Date_Closed': date_closed})  
 
         return self.sub_deltas_dict, empirical_dict
 
@@ -58,10 +66,11 @@ class LogEntry:
         
         ## time between assign and new (hrs)
         delta_new_assign = self.compute_delta(timestamp_new, timestamp_assign)
+        date_assign = self.sub_log_df.filter(pl.col('Defect_ID')==self.defect_id, pl.col('State')==self.state)['Date'][0]
         
         ## append value to empirical dict
         empirical_dict[self.control_type]['delta_new_assign'].append(delta_new_assign)
-        return delta_new_assign, empirical_dict
+        return delta_new_assign, date_assign, empirical_dict
     
     def state_inprogress(self, empirical_dict):
         """
@@ -78,10 +87,11 @@ class LogEntry:
         
         ## time between in-progress and assign (hrs)
         delta_assign_inprogress = self.compute_delta(timestamp_assign, timestamp_inprogress)
+        date_inprogress = self.sub_log_df.filter(pl.col('Defect_ID')==self.defect_id, pl.col('State')==self.state)['Date'][0]
         
         ## append value to empirical dict
         empirical_dict[self.control_type]['delta_assign_inprogress'].append(delta_assign_inprogress)
-        return delta_assign_inprogress, empirical_dict
+        return delta_assign_inprogress, date_inprogress, empirical_dict
     
     def state_closed(self, empirical_dict):
         """
@@ -101,11 +111,12 @@ class LogEntry:
         ## time between closed and in-progress, and closed and new (hrs)
         delta_inprogress_closed = self.compute_delta(timestamp_inprogress, timestamp_closed)
         delta_new_closed = self.compute_delta(timestamp_new, timestamp_closed)
+        date_closed = self.sub_log_df.filter(pl.col('Defect_ID')==self.defect_id, pl.col('State')==self.state)['Date'][0]
         
         ## append value to empirical dict
         empirical_dict[self.control_type]['delta_inprogress_closed'].append(delta_inprogress_closed)
         empirical_dict[self.control_type]['delta_new_closed'].append(delta_new_closed)
-        return delta_inprogress_closed, delta_new_closed, empirical_dict
+        return delta_inprogress_closed, delta_new_closed, date_closed, empirical_dict
     
     def compute_delta(self, timestamp_older, timestamp_newer):
         """

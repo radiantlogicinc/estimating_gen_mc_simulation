@@ -21,28 +21,30 @@ def initialize_simulation(args):
     log_df = log_df.with_columns(pl.col("Timestamp").dt.date().alias("Date"))
     log_df = log_df.with_columns(pl.col("Timestamp").dt.hour().alias("Hour"))
 
-    if args.path_empirical_dict is None:
-        empirical_dict = {}
-    else:
-        with open(args.path_empirical_dict, 'rb') as f:
-            empirical_dict = pickle.load(f)
+    # if args.path_empirical_dict is None:
+    #     empirical_dict = {}
+    # else:
+    with open('simulations/dicts/empirical_dict.pkl', 'rb') as f:
+        empirical_dict = pickle.load(f)
     
-    if args.path_incoming_dict is None:
-        incoming_dict = {}
-    else:
-        with open(args.path_incoming_dict, 'rb') as f:
-            incoming_dict = pickle.load(f)
+    # if args.path_incoming_dict is None:
+    #     incoming_dict = {}
+    # else:
+    with open('simulations/dicts/incoming_dict.pkl', 'rb') as f:
+        incoming_dict = pickle.load(f)
     
-    if args.path_outgoing_dict is None:
-        outgoing_dict = {}
-    else:
-        with open(args.path_outgoing_dict, 'rb') as f:
-            outgoing_dict = pickle.load(f)
+    # if args.path_outgoing_dict is None:
+    #     outgoing_dict = {}
+    # else:
+    with open('simulations/dicts/outgoing_dict.pkl', 'rb') as f:
+        outgoing_dict = pickle.load(f)
     
-    if args.path_deltas_df is None:
-        deltas_df = pl.DataFrame(schema=[('Defect_ID',int),('Control_Type',str),('Delta_New_Assign',float),('Delta_Assign_InProgress',float),('Delta_InProgress_Closed',float), ('Delta_New_Closed',float)])
-    else:
-        deltas_df = pl.read_csv(args.path_deltas_df)
+    # if args.path_deltas_df is None:
+    #     deltas_df = pl.DataFrame(schema=[('Defect_ID',int),('Control_Type',str),('Delta_New_Assign',float),('Delta_Assign_InProgress',float),('Delta_InProgress_Closed',float), ('Delta_New_Closed',float)])
+    # else:
+    # deltas_df = pl.read_csv('deltas_df.csv') # to be moved to json
+    with open('simulations/deltas_df.json', 'rb') as file:
+        deltas_df = pl.read_json(file)
 
 
     control_types = log_df['Control_Type'].unique()
