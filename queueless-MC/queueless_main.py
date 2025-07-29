@@ -1,10 +1,13 @@
 import polars as pl
 import time
+import json
 import pickle
 import argparse
 from initialize_simulation_ql import initialize_simulation
 from delta_table_simulation import delta_table_simulation
 from fastworkflow_build import fastworkflow_build
+from queueing_build import queueing_build
+
 
 
 parser = argparse.ArgumentParser(exit_on_error=False)
@@ -22,20 +25,21 @@ if __name__ == "__main__":
     # initialize_simulation_ql(args)
     pl.Config.set_tbl_hide_dataframe_shape(True)
 
-    log_df, deltas_df, empirical_dict, incoming_dict, outgoing_dict, control_types = initialize_simulation(args)
+    log_df, deltas_df, empirical_dict, incoming_dict, outgoing_dict, timedeltas_dict, control_types = initialize_simulation(args)
     for control_type in control_types:
-        deltas_df, empirical_dict, incoming_dict, outgoing_dict = delta_table_simulation(control_type, log_df, deltas_df, empirical_dict, incoming_dict, outgoing_dict)
+        deltas_df, empirical_dict, incoming_dict, outgoing_dict, timedeltas_dict = delta_table_simulation(control_type, log_df, deltas_df, empirical_dict, incoming_dict, outgoing_dict, timedeltas_dict)
     
-    fastworkflow_build(control_types, deltas_df, incoming_dict, outgoing_dict)
+    # fastworkflow_build(control_types, deltas_df, incoming_dict, outgoing_dict, timedeltas_dict)
+    queueing_build(control_types, empirical_dict)
     
     # visualize incoming / outgoing distributions
     print(deltas_df)
 
     # export states as pickled json or csv
-    for item in ['empirical_dict', 'incoming_dict', 'outgoing_dict', 'deltas_df']:
+    for item in ['empirical_dict', 'incoming_dict', 'outgoing_dict', 'timedeltas_dict', 'deltas_df']:
         if item != 'deltas_df':
-            with open(f'simulations/dicts/{item}.pkl', 'wb') as f:
-                pickle.dump(eval(item), f)
+            with open(f'simulations/dicts/{item}.json', 'w') as file:
+                json.dump(eval(item), file)
         else:
             with open('simulations/deltas_df.json', 'wb') as f:
                 deltas_df.sort('Defect_ID').write_json(f)

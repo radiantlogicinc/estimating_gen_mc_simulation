@@ -1,5 +1,7 @@
 import polars as pl
 import pickle
+import json
+import datetime
 
 def initialize_simulation(args):
     """
@@ -24,20 +26,26 @@ def initialize_simulation(args):
     # if args.path_empirical_dict is None:
     #     empirical_dict = {}
     # else:
-    with open('simulations/dicts/empirical_dict.pkl', 'rb') as f:
-        empirical_dict = pickle.load(f)
+    with open('simulations/dicts/empirical_dict.json', 'r') as f:
+        empirical_dict = json.load(f)
+    # with open('simulations/dicts/empirical_dict.pkl', 'r') as f:
+    #     empirical_dict = pickle.load(f)
     
     # if args.path_incoming_dict is None:
     #     incoming_dict = {}
     # else:
-    with open('simulations/dicts/incoming_dict.pkl', 'rb') as f:
-        incoming_dict = pickle.load(f)
+    with open('simulations/dicts/incoming_dict.json', 'r') as f:
+        incoming_dict = json.load(f)
+    # incoming_dict = {datetime.datetime.strptime(key, "%Y-%m-%d").date(): value for key, value in }
     
     # if args.path_outgoing_dict is None:
     #     outgoing_dict = {}
     # else:
-    with open('simulations/dicts/outgoing_dict.pkl', 'rb') as f:
-        outgoing_dict = pickle.load(f)
+    with open('simulations/dicts/outgoing_dict.json', 'r') as f:
+        outgoing_dict = json.load(f)
+
+    with open('simulations/dicts/timedeltas_dict.json', 'r') as f:
+        timedeltas_dict = json.load(f)
     
     # if args.path_deltas_df is None:
     #     deltas_df = pl.DataFrame(schema=[('Defect_ID',int),('Control_Type',str),('Delta_New_Assign',float),('Delta_Assign_InProgress',float),('Delta_InProgress_Closed',float), ('Delta_New_Closed',float)])
@@ -45,6 +53,9 @@ def initialize_simulation(args):
     # deltas_df = pl.read_csv('deltas_df.csv') # to be moved to json
     with open('simulations/deltas_df.json', 'rb') as file:
         deltas_df = pl.read_json(file)
+    deltas_df = deltas_df.with_columns(pl.col('Date_Assign').str.strptime(pl.Date, '%Y-%m-%d'),
+                                       pl.col('Date_InProgress').str.strptime(pl.Date, '%Y-%m-%d'),
+                                       pl.col('Date_Closed').str.strptime(pl.Date, '%Y-%m-%d'))
 
 
     control_types = log_df['Control_Type'].unique()
@@ -61,5 +72,7 @@ def initialize_simulation(args):
             incoming_dict[control_type] = {}
         if (not outgoing_dict) or (control_type not in outgoing_dict.keys()):
             outgoing_dict[control_type] = {}
+        if (not timedeltas_dict) or (control_type not in timedeltas_dict.keys()):
+            timedeltas_dict[control_type] = {}
 
-    return log_df, deltas_df, empirical_dict, incoming_dict, outgoing_dict, control_types
+    return log_df, deltas_df, empirical_dict, incoming_dict, outgoing_dict, timedeltas_dict, control_types

@@ -2,10 +2,9 @@ import numpy as np
 
 class VisualizationFunctions:
     def __init__(self):
-        pass
+        self.csfont = {'fontname':'Arial'}
 
     def visualize_histograms_theory(self, fig, axs, index, data, label=None, title=None, color='black', step=False):
-        csfont = {'fontname':'Arial'}
         data = np.array(data)
         unique_values = np.unique(data)
         d = 1 if np.all(unique_values) == 0 else np.diff(unique_values).min()
@@ -30,19 +29,13 @@ class VisualizationFunctions:
                             alpha=0.5,
                             edgecolor='black')
         if title:
-            axs[index].set_title(title, loc='left', fontsize=12, **csfont)
+            axs[index].set_title(title, loc='left', fontsize=12, **self.csfont)
         return fig, axs
-    
-    def visualize_histograms_samples(self):
-        pass
-
-    def visualize_boxplots(self):
-        pass
 
     def visualize_timeline(self, fig, axs, index, xdata, ydata, ylabel=None, title=None):
         axs[index].plot(xdata, ydata, 'k-o', markersize=6)
         if ylabel:
-            axs[index].set_ylabel(ylabel)
+            axs[index].set_ylabel(ylabel, **self.csfont)
         if title:
-            axs[index].set_title(title, loc='left', fontsize=10)
+            axs[index].set_title(title, loc='left', fontsize=10, **self.csfont)
         return fig, axs
