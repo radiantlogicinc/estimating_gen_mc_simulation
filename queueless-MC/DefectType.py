@@ -45,7 +45,7 @@ class DefectType(ABC):
             self.sub_deltas_df.extend(pl.DataFrame(sub_deltas_dict[key]))
         return self.sub_deltas_df, empirical_dict
 
-    def update_histograms(self, deltas_df, incoming_dict, outgoing_dict, timedeltas_dict, empirical_dict):
+    def update_histograms(self, log_df, deltas_df, incoming_dict, outgoing_dict, timedeltas_dict, empirical_dict):
         """
         Triggers empirical log data histograms and corresponding figures update (per defect type)
         
@@ -61,8 +61,9 @@ class DefectType(ABC):
         """
         # sub_deltas_df = deltas_df.filter(pl.col('Control_Type') == self.control_type).drop_nans()
         sub_deltas_df = deltas_df.filter(pl.col('Control_Type') == self.control_type)
-        histories = BuildHistories(self.control_type, self.sub_log_df, sub_deltas_df, incoming_dict, outgoing_dict, timedeltas_dict, empirical_dict)
+        histories = BuildHistories(self.control_type, log_df, sub_deltas_df, incoming_dict, outgoing_dict, timedeltas_dict, empirical_dict)
         if sub_deltas_df.is_empty() == 0:
+            histories.update_empirical()
             histories.update_delta_histograms()
             incoming_dict, empirical_dict = histories.update_incoming()
             outgoing_dict, empirical_dict = histories.update_outgoing()

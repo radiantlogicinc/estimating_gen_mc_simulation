@@ -69,7 +69,7 @@ class LogEntry:
         date_assign = self.sub_log_df.filter(pl.col('Defect_ID')==self.defect_id, pl.col('State')==self.state)['Date'][0]
         
         ## append value to empirical dict
-        empirical_dict[self.control_type]['delta_new_assign'].append(delta_new_assign)
+        # empirical_dict[self.control_type]['delta_new_assign'].append(delta_new_assign)
         return delta_new_assign, date_assign, empirical_dict
     
     def state_inprogress(self, empirical_dict):
@@ -90,7 +90,7 @@ class LogEntry:
         date_inprogress = self.sub_log_df.filter(pl.col('Defect_ID')==self.defect_id, pl.col('State')==self.state)['Date'][0]
         
         ## append value to empirical dict
-        empirical_dict[self.control_type]['delta_assign_inprogress'].append(delta_assign_inprogress)
+        # empirical_dict[self.control_type]['delta_assign_inprogress'].append(delta_assign_inprogress)
         return delta_assign_inprogress, date_inprogress, empirical_dict
     
     def state_closed(self, empirical_dict):
@@ -114,8 +114,8 @@ class LogEntry:
         date_closed = self.sub_log_df.filter(pl.col('Defect_ID')==self.defect_id, pl.col('State')==self.state)['Date'][0]
         
         ## append value to empirical dict
-        empirical_dict[self.control_type]['delta_inprogress_closed'].append(delta_inprogress_closed)
-        empirical_dict[self.control_type]['delta_new_closed'].append(delta_new_closed)
+        # empirical_dict[self.control_type]['delta_inprogress_closed'].append(delta_inprogress_closed)
+        # empirical_dict[self.control_type]['delta_new_closed'].append(delta_new_closed)
         return delta_inprogress_closed, delta_new_closed, date_closed, empirical_dict
     
     def compute_delta(self, timestamp_older, timestamp_newer):

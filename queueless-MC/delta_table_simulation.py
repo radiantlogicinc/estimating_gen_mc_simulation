@@ -23,6 +23,6 @@ def delta_table_simulation(control_type, log_df, deltas_df, empirical_dict, inco
     sub_log_df = log_df.filter(pl.col('Control_Type') == control_type)
     instance = getattr(sys.modules[__name__], control_type)(sub_log_df)
     sub_deltas_df, empirical_dict = instance.update_delta_table(empirical_dict)
-    deltas_df = pl.concat([deltas_df, sub_deltas_df])
-    incoming_dict, outgoing_dict, timedeltas_dict, empirical_dict = instance.update_histograms(deltas_df, incoming_dict, outgoing_dict, timedeltas_dict, empirical_dict)
+    deltas_df = pl.concat([deltas_df, sub_deltas_df]).unique()
+    incoming_dict, outgoing_dict, timedeltas_dict, empirical_dict = instance.update_histograms(log_df, deltas_df, incoming_dict, outgoing_dict, timedeltas_dict, empirical_dict)
     return deltas_df, empirical_dict, incoming_dict, outgoing_dict, timedeltas_dict

@@ -73,6 +73,10 @@ def initialize_simulation(args):
         if (not outgoing_dict) or (control_type not in outgoing_dict.keys()):
             outgoing_dict[control_type] = {}
         if (not timedeltas_dict) or (control_type not in timedeltas_dict.keys()):
-            timedeltas_dict[control_type] = {}
+            timedeltas_dict[control_type] = {'delta_new_assign': {},
+                                            'delta_assign_inprogress': {},
+                                            'delta_inprogress_closed': {},
+                                            'delta_new_closed': {}
+                                            }
 
     return log_df, deltas_df, empirical_dict, incoming_dict, outgoing_dict, timedeltas_dict, control_types

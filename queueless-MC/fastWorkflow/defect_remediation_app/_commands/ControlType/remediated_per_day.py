@@ -8,15 +8,15 @@ from ...application.control_type import ControlType
 class Signature:
     class Input(BaseModel):
         time_span: str = Field(
-            description="The time span to focus on, 1 2 3 only possible answers",
+            description="The time span to focus on, 'day', 'month', 'all_time' only possible answers",
             examples=['1', '2', '3'],
             # pattern=r'^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$'
         )
 
     plain_utterances = [
-        "I want to know how many defects are being remediated over time span 1",
-        "What is the average amount of defects being remediated every day according to time span 2"
-        "How many defects are remediated daily looking at time span 3"
+        "I want to know how many defects were remediated in the last day",
+        "What is the average amount of defects that were remediated per day over the last month?"
+        "How many defects are remediated daily looking at data for all time?"
     ]
 
     @staticmethod

@@ -29,7 +29,7 @@ if __name__ == "__main__":
     for control_type in control_types:
         deltas_df, empirical_dict, incoming_dict, outgoing_dict, timedeltas_dict = delta_table_simulation(control_type, log_df, deltas_df, empirical_dict, incoming_dict, outgoing_dict, timedeltas_dict)
     
-    # fastworkflow_build(control_types, deltas_df, incoming_dict, outgoing_dict, timedeltas_dict)
+    fastworkflow_build(control_types, deltas_df, incoming_dict, outgoing_dict, timedeltas_dict)
     queueing_build(control_types, empirical_dict)
     
     # visualize incoming / outgoing distributions
