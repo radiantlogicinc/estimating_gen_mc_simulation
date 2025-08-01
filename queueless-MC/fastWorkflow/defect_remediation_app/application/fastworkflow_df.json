@@ -1,0 +1,542 @@
+[
+    {
+        "item": "delta_assign_inprogress_ACC03_all_time",
+        "control_type": "ACC03",
+        "time_span": "all_time",
+        "mean": "34.83"
+    },
+    {
+        "item": "delta_assign_inprogress_ACC03_day",
+        "control_type": "ACC03",
+        "time_span": "day",
+        "mean": "45.93"
+    },
+    {
+        "item": "delta_assign_inprogress_ACC03_month",
+        "control_type": "ACC03",
+        "time_span": "month",
+        "mean": "40.21"
+    },
+    {
+        "item": "delta_assign_inprogress_ACC17_all_time",
+        "control_type": "ACC17",
+        "time_span": "all_time",
+        "mean": "5.35"
+    },
+    {
+        "item": "delta_assign_inprogress_ACC17_day",
+        "control_type": "ACC17",
+        "time_span": "day",
+        "mean": "3.29"
+    },
+    {
+        "item": "delta_assign_inprogress_ACC17_month",
+        "control_type": "ACC17",
+        "time_span": "month",
+        "mean": "6.16"
+    },
+    {
+        "item": "delta_assign_inprogress_ACC28_all_time",
+        "control_type": "ACC28",
+        "time_span": "all_time",
+        "mean": "3.93"
+    },
+    {
+        "item": "delta_assign_inprogress_ACC28_day",
+        "control_type": "ACC28",
+        "time_span": "day",
+        "mean": "4.4"
+    },
+    {
+        "item": "delta_assign_inprogress_ACC28_month",
+        "control_type": "ACC28",
+        "time_span": "month",
+        "mean": "4.31"
+    },
+    {
+        "item": "delta_assign_inprogress_AUTH18_all_time",
+        "control_type": "AUTH18",
+        "time_span": "all_time",
+        "mean": "16.66"
+    },
+    {
+        "item": "delta_assign_inprogress_AUTH18_day",
+        "control_type": "AUTH18",
+        "time_span": "day",
+        "mean": "23.45"
+    },
+    {
+        "item": "delta_assign_inprogress_AUTH18_month",
+        "control_type": "AUTH18",
+        "time_span": "month",
+        "mean": "19.31"
+    },
+    {
+        "item": "delta_assign_inprogress_AUTH42_all_time",
+        "control_type": "AUTH42",
+        "time_span": "all_time",
+        "mean": "32.5"
+    },
+    {
+        "item": "delta_assign_inprogress_AUTH42_day",
+        "control_type": "AUTH42",
+        "time_span": "day",
+        "mean": "45.18"
+    },
+    {
+        "item": "delta_assign_inprogress_AUTH42_month",
+        "control_type": "AUTH42",
+        "time_span": "month",
+        "mean": "37.74"
+    },
+    {
+        "item": "delta_inprogress_closed_ACC03_all_time",
+        "control_type": "ACC03",
+        "time_span": "all_time",
+        "mean": "7.02"
+    },
+    {
+        "item": "delta_inprogress_closed_ACC03_day",
+        "control_type": "ACC03",
+        "time_span": "day",
+        "mean": "8.22"
+    },
+    {
+        "item": "delta_inprogress_closed_ACC03_month",
+        "control_type": "ACC03",
+        "time_span": "month",
+        "mean": "7.7"
+    },
+    {
+        "item": "delta_inprogress_closed_ACC17_all_time",
+        "control_type": "ACC17",
+        "time_span": "all_time",
+        "mean": "17.65"
+    },
+    {
+        "item": "delta_inprogress_closed_ACC17_day",
+        "control_type": "ACC17",
+        "time_span": "day",
+        "mean": "24.6"
+    },
+    {
+        "item": "delta_inprogress_closed_ACC17_month",
+        "control_type": "ACC17",
+        "time_span": "month",
+        "mean": "20.43"
+    },
+    {
+        "item": "delta_inprogress_closed_ACC28_all_time",
+        "control_type": "ACC28",
+        "time_span": "all_time",
+        "mean": "32.55"
+    },
+    {
+        "item": "delta_inprogress_closed_ACC28_day",
+        "control_type": "ACC28",
+        "time_span": "day",
+        "mean": "40.79"
+    },
+    {
+        "item": "delta_inprogress_closed_ACC28_month",
+        "control_type": "ACC28",
+        "time_span": "month",
+        "mean": "37.63"
+    },
+    {
+        "item": "delta_inprogress_closed_AUTH18_all_time",
+        "control_type": "AUTH18",
+        "time_span": "all_time",
+        "mean": "13.25"
+    },
+    {
+        "item": "delta_inprogress_closed_AUTH18_day",
+        "control_type": "AUTH18",
+        "time_span": "day",
+        "mean": "14.11"
+    },
+    {
+        "item": "delta_inprogress_closed_AUTH18_month",
+        "control_type": "AUTH18",
+        "time_span": "month",
+        "mean": "15.13"
+    },
+    {
+        "item": "delta_inprogress_closed_AUTH42_all_time",
+        "control_type": "AUTH42",
+        "time_span": "all_time",
+        "mean": "17.24"
+    },
+    {
+        "item": "delta_inprogress_closed_AUTH42_day",
+        "control_type": "AUTH42",
+        "time_span": "day",
+        "mean": "23.72"
+    },
+    {
+        "item": "delta_inprogress_closed_AUTH42_month",
+        "control_type": "AUTH42",
+        "time_span": "month",
+        "mean": "20.0"
+    },
+    {
+        "item": "delta_new_assign_ACC03_all_time",
+        "control_type": "ACC03",
+        "time_span": "all_time",
+        "mean": "21.32"
+    },
+    {
+        "item": "delta_new_assign_ACC03_day",
+        "control_type": "ACC03",
+        "time_span": "day",
+        "mean": "24.62"
+    },
+    {
+        "item": "delta_new_assign_ACC03_month",
+        "control_type": "ACC03",
+        "time_span": "month",
+        "mean": "24.13"
+    },
+    {
+        "item": "delta_new_assign_ACC17_all_time",
+        "control_type": "ACC17",
+        "time_span": "all_time",
+        "mean": "6.6"
+    },
+    {
+        "item": "delta_new_assign_ACC17_day",
+        "control_type": "ACC17",
+        "time_span": "day",
+        "mean": "9.27"
+    },
+    {
+        "item": "delta_new_assign_ACC17_month",
+        "control_type": "ACC17",
+        "time_span": "month",
+        "mean": "7.5"
+    },
+    {
+        "item": "delta_new_assign_ACC28_all_time",
+        "control_type": "ACC28",
+        "time_span": "all_time",
+        "mean": "3.63"
+    },
+    {
+        "item": "delta_new_assign_ACC28_day",
+        "control_type": "ACC28",
+        "time_span": "day",
+        "mean": "4.06"
+    },
+    {
+        "item": "delta_new_assign_ACC28_month",
+        "control_type": "ACC28",
+        "time_span": "month",
+        "mean": "3.98"
+    },
+    {
+        "item": "delta_new_assign_AUTH18_all_time",
+        "control_type": "AUTH18",
+        "time_span": "all_time",
+        "mean": "30.32"
+    },
+    {
+        "item": "delta_new_assign_AUTH18_day",
+        "control_type": "AUTH18",
+        "time_span": "day",
+        "mean": "42.98"
+    },
+    {
+        "item": "delta_new_assign_AUTH18_month",
+        "control_type": "AUTH18",
+        "time_span": "month",
+        "mean": "35.04"
+    },
+    {
+        "item": "delta_new_assign_AUTH42_all_time",
+        "control_type": "AUTH42",
+        "time_span": "all_time",
+        "mean": "26.3"
+    },
+    {
+        "item": "delta_new_assign_AUTH42_day",
+        "control_type": "AUTH42",
+        "time_span": "day",
+        "mean": "34.65"
+    },
+    {
+        "item": "delta_new_assign_AUTH42_month",
+        "control_type": "AUTH42",
+        "time_span": "month",
+        "mean": "30.48"
+    },
+    {
+        "item": "delta_new_closed_ACC03_all_time",
+        "control_type": "ACC03",
+        "time_span": "all_time",
+        "mean": "62.76"
+    },
+    {
+        "item": "delta_new_closed_ACC03_day",
+        "control_type": "ACC03",
+        "time_span": "day",
+        "mean": "78.77"
+    },
+    {
+        "item": "delta_new_closed_ACC03_month",
+        "control_type": "ACC03",
+        "time_span": "month",
+        "mean": "71.55"
+    },
+    {
+        "item": "delta_new_closed_ACC17_all_time",
+        "control_type": "ACC17",
+        "time_span": "all_time",
+        "mean": "28.64"
+    },
+    {
+        "item": "delta_new_closed_ACC17_day",
+        "control_type": "ACC17",
+        "time_span": "day",
+        "mean": "37.16"
+    },
+    {
+        "item": "delta_new_closed_ACC17_month",
+        "control_type": "ACC17",
+        "time_span": "month",
+        "mean": "32.98"
+    },
+    {
+        "item": "delta_new_closed_ACC28_all_time",
+        "control_type": "ACC28",
+        "time_span": "all_time",
+        "mean": "41.56"
+    },
+    {
+        "item": "delta_new_closed_ACC28_day",
+        "control_type": "ACC28",
+        "time_span": "day",
+        "mean": "51.37"
+    },
+    {
+        "item": "delta_new_closed_ACC28_month",
+        "control_type": "ACC28",
+        "time_span": "month",
+        "mean": "47.59"
+    },
+    {
+        "item": "delta_new_closed_AUTH18_all_time",
+        "control_type": "AUTH18",
+        "time_span": "all_time",
+        "mean": "53.47"
+    },
+    {
+        "item": "delta_new_closed_AUTH18_day",
+        "control_type": "AUTH18",
+        "time_span": "day",
+        "mean": "72.46"
+    },
+    {
+        "item": "delta_new_closed_AUTH18_month",
+        "control_type": "AUTH18",
+        "time_span": "month",
+        "mean": "61.63"
+    },
+    {
+        "item": "delta_new_closed_AUTH42_all_time",
+        "control_type": "AUTH42",
+        "time_span": "all_time",
+        "mean": "72.69"
+    },
+    {
+        "item": "delta_new_closed_AUTH42_day",
+        "control_type": "AUTH42",
+        "time_span": "day",
+        "mean": "105.19"
+    },
+    {
+        "item": "delta_new_closed_AUTH42_month",
+        "control_type": "AUTH42",
+        "time_span": "month",
+        "mean": "84.33"
+    },
+    {
+        "item": "generated_per_day_ACC03_all_time",
+        "control_type": "ACC03",
+        "time_span": "all_time",
+        "mean": "Fewer than 1"
+    },
+    {
+        "item": "generated_per_day_ACC03_day",
+        "control_type": "ACC03",
+        "time_span": "day",
+        "mean": "Fewer than 1"
+    },
+    {
+        "item": "generated_per_day_ACC03_month",
+        "control_type": "ACC03",
+        "time_span": "month",
+        "mean": "More than 100"
+    },
+    {
+        "item": "generated_per_day_ACC17_all_time",
+        "control_type": "ACC17",
+        "time_span": "all_time",
+        "mean": "Fewer than 1"
+    },
+    {
+        "item": "generated_per_day_ACC17_day",
+        "control_type": "ACC17",
+        "time_span": "day",
+        "mean": "Fewer than 1"
+    },
+    {
+        "item": "generated_per_day_ACC17_month",
+        "control_type": "ACC17",
+        "time_span": "month",
+        "mean": "More than 100"
+    },
+    {
+        "item": "generated_per_day_ACC28_all_time",
+        "control_type": "ACC28",
+        "time_span": "all_time",
+        "mean": "Fewer than 1"
+    },
+    {
+        "item": "generated_per_day_ACC28_day",
+        "control_type": "ACC28",
+        "time_span": "day",
+        "mean": "Fewer than 1"
+    },
+    {
+        "item": "generated_per_day_ACC28_month",
+        "control_type": "ACC28",
+        "time_span": "month",
+        "mean": "More than 100"
+    },
+    {
+        "item": "generated_per_day_AUTH18_all_time",
+        "control_type": "AUTH18",
+        "time_span": "all_time",
+        "mean": "Fewer than 1"
+    },
+    {
+        "item": "generated_per_day_AUTH18_day",
+        "control_type": "AUTH18",
+        "time_span": "day",
+        "mean": "Fewer than 1"
+    },
+    {
+        "item": "generated_per_day_AUTH18_month",
+        "control_type": "AUTH18",
+        "time_span": "month",
+        "mean": "More than 100"
+    },
+    {
+        "item": "generated_per_day_AUTH42_all_time",
+        "control_type": "AUTH42",
+        "time_span": "all_time",
+        "mean": "Fewer than 1"
+    },
+    {
+        "item": "generated_per_day_AUTH42_day",
+        "control_type": "AUTH42",
+        "time_span": "day",
+        "mean": "Fewer than 1"
+    },
+    {
+        "item": "generated_per_day_AUTH42_month",
+        "control_type": "AUTH42",
+        "time_span": "month",
+        "mean": "More than 100"
+    },
+    {
+        "item": "remediated_per_day_ACC03_all_time",
+        "control_type": "ACC03",
+        "time_span": "all_time",
+        "mean": "Fewer than 1"
+    },
+    {
+        "item": "remediated_per_day_ACC03_day",
+        "control_type": "ACC03",
+        "time_span": "day",
+        "mean": "More than 100"
+    },
+    {
+        "item": "remediated_per_day_ACC03_month",
+        "control_type": "ACC03",
+        "time_span": "month",
+        "mean": "More than 100"
+    },
+    {
+        "item": "remediated_per_day_ACC17_all_time",
+        "control_type": "ACC17",
+        "time_span": "all_time",
+        "mean": "Fewer than 1"
+    },
+    {
+        "item": "remediated_per_day_ACC17_day",
+        "control_type": "ACC17",
+        "time_span": "day",
+        "mean": "More than 100"
+    },
+    {
+        "item": "remediated_per_day_ACC17_month",
+        "control_type": "ACC17",
+        "time_span": "month",
+        "mean": "More than 100"
+    },
+    {
+        "item": "remediated_per_day_ACC28_all_time",
+        "control_type": "ACC28",
+        "time_span": "all_time",
+        "mean": "Fewer than 1"
+    },
+    {
+        "item": "remediated_per_day_ACC28_day",
+        "control_type": "ACC28",
+        "time_span": "day",
+        "mean": "More than 100"
+    },
+    {
+        "item": "remediated_per_day_ACC28_month",
+        "control_type": "ACC28",
+        "time_span": "month",
+        "mean": "More than 100"
+    },
+    {
+        "item": "remediated_per_day_AUTH18_all_time",
+        "control_type": "AUTH18",
+        "time_span": "all_time",
+        "mean": "Fewer than 1"
+    },
+    {
+        "item": "remediated_per_day_AUTH18_day",
+        "control_type": "AUTH18",
+        "time_span": "day",
+        "mean": "More than 100"
+    },
+    {
+        "item": "remediated_per_day_AUTH18_month",
+        "control_type": "AUTH18",
+        "time_span": "month",
+        "mean": "More than 100"
+    },
+    {
+        "item": "remediated_per_day_AUTH42_all_time",
+        "control_type": "AUTH42",
+        "time_span": "all_time",
+        "mean": "Fewer than 1"
+    },
+    {
+        "item": "remediated_per_day_AUTH42_day",
+        "control_type": "AUTH42",
+        "time_span": "day",
+        "mean": "More than 100"
+    },
+    {
+        "item": "remediated_per_day_AUTH42_month",
+        "control_type": "AUTH42",
+        "time_span": "month",
+        "mean": "More than 100"
+    }
+]

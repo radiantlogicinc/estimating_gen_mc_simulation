@@ -1,0 +1,722 @@
+[
+    {
+        "item": "generated_per_day_ACC03_1",
+        "control_type": "ACC03",
+        "time_span": "1",
+        "mean": "2.5"
+    },
+    {
+        "item": "generated_per_day_ACC03_2",
+        "control_type": "ACC03",
+        "time_span": "2",
+        "mean": "2"
+    },
+    {
+        "item": "generated_per_day_ACC03_3",
+        "control_type": "ACC03",
+        "time_span": "3",
+        "mean": "3"
+    },
+    {
+        "item": "generated_per_day_ACC17_1",
+        "control_type": "ACC17",
+        "time_span": "1",
+        "mean": "2.33"
+    },
+    {
+        "item": "generated_per_day_ACC17_2",
+        "control_type": "ACC17",
+        "time_span": "2",
+        "mean": "2.7"
+    },
+    {
+        "item": "generated_per_day_ACC17_3",
+        "control_type": "ACC17",
+        "time_span": "3",
+        "mean": "1.8"
+    },
+    {
+        "item": "generated_per_day_ACC28_1",
+        "control_type": "ACC28",
+        "time_span": "1",
+        "mean": "1.5"
+    },
+    {
+        "item": "generated_per_day_ACC28_2",
+        "control_type": "ACC28",
+        "time_span": "2",
+        "mean": "5.4"
+    },
+    {
+        "item": "generated_per_day_ACC28_3",
+        "control_type": "ACC28",
+        "time_span": "3",
+        "mean": "1.9"
+    },
+    {
+        "item": "generated_per_day_AUTH18_1",
+        "control_type": "AUTH18",
+        "time_span": "1",
+        "mean": "1.33"
+    },
+    {
+        "item": "generated_per_day_AUTH18_2",
+        "control_type": "AUTH18",
+        "time_span": "2",
+        "mean": "1.2"
+    },
+    {
+        "item": "generated_per_day_AUTH18_3",
+        "control_type": "AUTH18",
+        "time_span": "3",
+        "mean": "1.6"
+    },
+    {
+        "item": "generated_per_day_AUTH42_1",
+        "control_type": "AUTH42",
+        "time_span": "1",
+        "mean": "2.5"
+    },
+    {
+        "item": "generated_per_day_AUTH42_2",
+        "control_type": "AUTH42",
+        "time_span": "2",
+        "mean": "2.7"
+    },
+    {
+        "item": "generated_per_day_AUTH42_3",
+        "control_type": "AUTH42",
+        "time_span": "3",
+        "mean": "2.4"
+    },
+    {
+        "item": "generated_per_hour_ACC03_1",
+        "control_type": "ACC03",
+        "time_span": "1",
+        "mean": "0.2"
+    },
+    {
+        "item": "generated_per_hour_ACC03_2",
+        "control_type": "ACC03",
+        "time_span": "2",
+        "mean": "0.33"
+    },
+    {
+        "item": "generated_per_hour_ACC03_3",
+        "control_type": "ACC03",
+        "time_span": "3",
+        "mean": "0.15"
+    },
+    {
+        "item": "generated_per_hour_ACC17_1",
+        "control_type": "ACC17",
+        "time_span": "1",
+        "mean": "0.6"
+    },
+    {
+        "item": "generated_per_hour_ACC17_2",
+        "control_type": "ACC17",
+        "time_span": "2",
+        "mean": "0.14"
+    },
+    {
+        "item": "generated_per_hour_ACC17_3",
+        "control_type": "ACC17",
+        "time_span": "3",
+        "mean": "0.4"
+    },
+    {
+        "item": "generated_per_hour_ACC28_1",
+        "control_type": "ACC28",
+        "time_span": "1",
+        "mean": "0.22"
+    },
+    {
+        "item": "generated_per_hour_ACC28_2",
+        "control_type": "ACC28",
+        "time_span": "2",
+        "mean": "0.3"
+    },
+    {
+        "item": "generated_per_hour_ACC28_3",
+        "control_type": "ACC28",
+        "time_span": "3",
+        "mean": "0.17"
+    },
+    {
+        "item": "generated_per_hour_AUTH18_1",
+        "control_type": "AUTH18",
+        "time_span": "1",
+        "mean": "0.11"
+    },
+    {
+        "item": "generated_per_hour_AUTH18_2",
+        "control_type": "AUTH18",
+        "time_span": "2",
+        "mean": "0.33"
+    },
+    {
+        "item": "generated_per_hour_AUTH18_3",
+        "control_type": "AUTH18",
+        "time_span": "3",
+        "mean": "0.2"
+    },
+    {
+        "item": "generated_per_hour_AUTH42_1",
+        "control_type": "AUTH42",
+        "time_span": "1",
+        "mean": "0.45"
+    },
+    {
+        "item": "generated_per_hour_AUTH42_2",
+        "control_type": "AUTH42",
+        "time_span": "2",
+        "mean": "0.34"
+    },
+    {
+        "item": "generated_per_hour_AUTH42_3",
+        "control_type": "AUTH42",
+        "time_span": "3",
+        "mean": "0.3"
+    },
+    {
+        "item": "remediated_per_day_ACC03_1",
+        "control_type": "ACC03",
+        "time_span": "1",
+        "mean": "2.5"
+    },
+    {
+        "item": "remediated_per_day_ACC03_2",
+        "control_type": "ACC03",
+        "time_span": "2",
+        "mean": "2.6"
+    },
+    {
+        "item": "remediated_per_day_ACC03_3",
+        "control_type": "ACC03",
+        "time_span": "3",
+        "mean": "1.4"
+    },
+    {
+        "item": "remediated_per_day_ACC17_1",
+        "control_type": "ACC17",
+        "time_span": "1",
+        "mean": "1.75"
+    },
+    {
+        "item": "remediated_per_day_ACC17_2",
+        "control_type": "ACC17",
+        "time_span": "2",
+        "mean": "2.34"
+    },
+    {
+        "item": "remediated_per_day_ACC17_3",
+        "control_type": "ACC17",
+        "time_span": "3",
+        "mean": "2.33"
+    },
+    {
+        "item": "remediated_per_day_ACC28_1",
+        "control_type": "ACC28",
+        "time_span": "1",
+        "mean": "1"
+    },
+    {
+        "item": "remediated_per_day_ACC28_2",
+        "control_type": "ACC28",
+        "time_span": "2",
+        "mean": "4.8"
+    },
+    {
+        "item": "remediated_per_day_ACC28_3",
+        "control_type": "ACC28",
+        "time_span": "3",
+        "mean": "7.66"
+    },
+    {
+        "item": "remediated_per_day_AUTH18_1",
+        "control_type": "AUTH18",
+        "time_span": "1",
+        "mean": "1.33"
+    },
+    {
+        "item": "remediated_per_day_AUTH18_2",
+        "control_type": "AUTH18",
+        "time_span": "2",
+        "mean": "1.4"
+    },
+    {
+        "item": "remediated_per_day_AUTH18_3",
+        "control_type": "AUTH18",
+        "time_span": "3",
+        "mean": "2.1"
+    },
+    {
+        "item": "remediated_per_day_AUTH42_1",
+        "control_type": "AUTH42",
+        "time_span": "1",
+        "mean": "1.67"
+    },
+    {
+        "item": "remediated_per_day_AUTH42_2",
+        "control_type": "AUTH42",
+        "time_span": "2",
+        "mean": "1.55"
+    },
+    {
+        "item": "remediated_per_day_AUTH42_3",
+        "control_type": "AUTH42",
+        "time_span": "3",
+        "mean": "1.43"
+    },
+    {
+        "item": "remediated_per_hour_ACC03_1",
+        "control_type": "ACC03",
+        "time_span": "1",
+        "mean": "0.4"
+    },
+    {
+        "item": "remediated_per_hour_ACC03_2",
+        "control_type": "ACC03",
+        "time_span": "2",
+        "mean": "0.23"
+    },
+    {
+        "item": "remediated_per_hour_ACC03_3",
+        "control_type": "ACC03",
+        "time_span": "3",
+        "mean": "0.18"
+    },
+    {
+        "item": "remediated_per_hour_ACC17_1",
+        "control_type": "ACC17",
+        "time_span": "1",
+        "mean": "0.56"
+    },
+    {
+        "item": "remediated_per_hour_ACC17_2",
+        "control_type": "ACC17",
+        "time_span": "2",
+        "mean": "0.3"
+    },
+    {
+        "item": "remediated_per_hour_ACC17_3",
+        "control_type": "ACC17",
+        "time_span": "3",
+        "mean": "0.22"
+    },
+    {
+        "item": "remediated_per_hour_ACC28_1",
+        "control_type": "ACC28",
+        "time_span": "1",
+        "mean": "0.24"
+    },
+    {
+        "item": "remediated_per_hour_ACC28_2",
+        "control_type": "ACC28",
+        "time_span": "2",
+        "mean": "0.25"
+    },
+    {
+        "item": "remediated_per_hour_ACC28_3",
+        "control_type": "ACC28",
+        "time_span": "3",
+        "mean": "0.18"
+    },
+    {
+        "item": "remediated_per_hour_AUTH18_1",
+        "control_type": "AUTH18",
+        "time_span": "1",
+        "mean": "0.65"
+    },
+    {
+        "item": "remediated_per_hour_AUTH18_2",
+        "control_type": "AUTH18",
+        "time_span": "2",
+        "mean": "0.56"
+    },
+    {
+        "item": "remediated_per_hour_AUTH18_3",
+        "control_type": "AUTH18",
+        "time_span": "3",
+        "mean": "0.44"
+    },
+    {
+        "item": "remediated_per_hour_AUTH42_1",
+        "control_type": "AUTH42",
+        "time_span": "1",
+        "mean": "0.1"
+    },
+    {
+        "item": "remediated_per_hour_AUTH42_2",
+        "control_type": "AUTH42",
+        "time_span": "2",
+        "mean": "0.13"
+    },
+    {
+        "item": "remediated_per_hour_AUTH42_3",
+        "control_type": "AUTH42",
+        "time_span": "3",
+        "mean": "0.17"
+    },
+    {
+        "item": "delta_new_assign_ACC03_1",
+        "control_type": "ACC03",
+        "time_span": "1",
+        "mean": "9.583"
+    },
+    {
+        "item": "delta_new_assign_ACC03_2",
+        "control_type": "ACC03",
+        "time_span": "2",
+        "mean": "5.625"
+    },
+    {
+        "item": "delta_new_assign_ACC03_3",
+        "control_type": "ACC03",
+        "time_span": "3",
+        "mean": "7.837"
+    },
+    {
+        "item": "delta_new_assign_ACC17_1",
+        "control_type": "ACC17",
+        "time_span": "1",
+        "mean": "4.886"
+    },
+    {
+        "item": "delta_new_assign_ACC17_2",
+        "control_type": "ACC17",
+        "time_span": "2",
+        "mean": "4.654"
+    },
+    {
+        "item": "delta_new_assign_ACC17_3",
+        "control_type": "ACC17",
+        "time_span": "3",
+        "mean": "3.125"
+    },
+    {
+        "item": "delta_new_assign_ACC28_1",
+        "control_type": "ACC28",
+        "time_span": "1",
+        "mean": "3.209"
+    },
+    {
+        "item": "delta_new_assign_ACC28_2",
+        "control_type": "ACC28",
+        "time_span": "2",
+        "mean": "4.534"
+    },
+    {
+        "item": "delta_new_assign_ACC28_3",
+        "control_type": "ACC28",
+        "time_span": "3",
+        "mean": "4.221"
+    },
+    {
+        "item": "delta_new_assign_AUTH18_1",
+        "control_type": "AUTH18",
+        "time_span": "1",
+        "mean": "22.282"
+    },
+    {
+        "item": "delta_new_assign_AUTH18_2",
+        "control_type": "AUTH18",
+        "time_span": "2",
+        "mean": "4.567"
+    },
+    {
+        "item": "delta_new_assign_AUTH18_3",
+        "control_type": "AUTH18",
+        "time_span": "3",
+        "mean": "5.626"
+    },
+    {
+        "item": "delta_new_assign_AUTH42_1",
+        "control_type": "AUTH42",
+        "time_span": "1",
+        "mean": "17.169"
+    },
+    {
+        "item": "delta_new_assign_AUTH42_2",
+        "control_type": "AUTH42",
+        "time_span": "2",
+        "mean": "18.441"
+    },
+    {
+        "item": "delta_new_assign_AUTH42_3",
+        "control_type": "AUTH42",
+        "time_span": "3",
+        "mean": "15.678"
+    },
+    {
+        "item": "delta_assign_inprogress_ACC03_1",
+        "control_type": "ACC03",
+        "time_span": "1",
+        "mean": "5.848"
+    },
+    {
+        "item": "delta_assign_inprogress_ACC03_2",
+        "control_type": "ACC03",
+        "time_span": "2",
+        "mean": "4.956"
+    },
+    {
+        "item": "delta_assign_inprogress_ACC03_3",
+        "control_type": "ACC03",
+        "time_span": "3",
+        "mean": "6.389"
+    },
+    {
+        "item": "delta_assign_inprogress_ACC17_1",
+        "control_type": "ACC17",
+        "time_span": "1",
+        "mean": "5.022"
+    },
+    {
+        "item": "delta_assign_inprogress_ACC17_2",
+        "control_type": "ACC17",
+        "time_span": "2",
+        "mean": "4.995"
+    },
+    {
+        "item": "delta_assign_inprogress_ACC17_3",
+        "control_type": "ACC17",
+        "time_span": "3",
+        "mean": "3.294"
+    },
+    {
+        "item": "delta_assign_inprogress_ACC28_1",
+        "control_type": "ACC28",
+        "time_span": "1",
+        "mean": "3.463"
+    },
+    {
+        "item": "delta_assign_inprogress_ACC28_2",
+        "control_type": "ACC28",
+        "time_span": "2",
+        "mean": "5.441"
+    },
+    {
+        "item": "delta_assign_inprogress_ACC28_3",
+        "control_type": "ACC28",
+        "time_span": "3",
+        "mean": "2.391"
+    },
+    {
+        "item": "delta_assign_inprogress_AUTH18_1",
+        "control_type": "AUTH18",
+        "time_span": "1",
+        "mean": "9.152"
+    },
+    {
+        "item": "delta_assign_inprogress_AUTH18_2",
+        "control_type": "AUTH18",
+        "time_span": "2",
+        "mean": "8.776"
+    },
+    {
+        "item": "delta_assign_inprogress_AUTH18_3",
+        "control_type": "AUTH18",
+        "time_span": "3",
+        "mean": "8.135"
+    },
+    {
+        "item": "delta_assign_inprogress_AUTH42_1",
+        "control_type": "AUTH42",
+        "time_span": "1",
+        "mean": "21.161"
+    },
+    {
+        "item": "delta_assign_inprogress_AUTH42_2",
+        "control_type": "AUTH42",
+        "time_span": "2",
+        "mean": "20.699"
+    },
+    {
+        "item": "delta_assign_inprogress_AUTH42_3",
+        "control_type": "AUTH42",
+        "time_span": "3",
+        "mean": "21.365"
+    },
+    {
+        "item": "delta_inprogress_closed_ACC03_1",
+        "control_type": "ACC03",
+        "time_span": "1",
+        "mean": "3.536"
+    },
+    {
+        "item": "delta_inprogress_closed_ACC03_2",
+        "control_type": "ACC03",
+        "time_span": "2",
+        "mean": "4.561"
+    },
+    {
+        "item": "delta_inprogress_closed_ACC03_3",
+        "control_type": "ACC03",
+        "time_span": "3",
+        "mean": "3.567"
+    },
+    {
+        "item": "delta_inprogress_closed_ACC17_1",
+        "control_type": "ACC17",
+        "time_span": "1",
+        "mean": "14.015"
+    },
+    {
+        "item": "delta_inprogress_closed_ACC17_2",
+        "control_type": "ACC17",
+        "time_span": "2",
+        "mean": "3.669"
+    },
+    {
+        "item": "delta_inprogress_closed_ACC17_3",
+        "control_type": "ACC17",
+        "time_span": "3",
+        "mean": "6.745"
+    },
+    {
+        "item": "delta_inprogress_closed_ACC28_1",
+        "control_type": "ACC28",
+        "time_span": "1",
+        "mean": "21.373"
+    },
+    {
+        "item": "delta_inprogress_closed_ACC28_2",
+        "control_type": "ACC28",
+        "time_span": "2",
+        "mean": "13.429"
+    },
+    {
+        "item": "delta_inprogress_closed_ACC28_3",
+        "control_type": "ACC28",
+        "time_span": "3",
+        "mean": "12.085"
+    },
+    {
+        "item": "delta_inprogress_closed_AUTH18_1",
+        "control_type": "AUTH18",
+        "time_span": "1",
+        "mean": "13.81"
+    },
+    {
+        "item": "delta_inprogress_closed_AUTH18_2",
+        "control_type": "AUTH18",
+        "time_span": "2",
+        "mean": "10.901"
+    },
+    {
+        "item": "delta_inprogress_closed_AUTH18_3",
+        "control_type": "AUTH18",
+        "time_span": "3",
+        "mean": "12.618"
+    },
+    {
+        "item": "delta_inprogress_closed_AUTH42_1",
+        "control_type": "AUTH42",
+        "time_span": "1",
+        "mean": "34.888"
+    },
+    {
+        "item": "delta_inprogress_closed_AUTH42_2",
+        "control_type": "AUTH42",
+        "time_span": "2",
+        "mean": "28.917"
+    },
+    {
+        "item": "delta_inprogress_closed_AUTH42_3",
+        "control_type": "AUTH42",
+        "time_span": "3",
+        "mean": "25.218"
+    },
+    {
+        "item": "delta_new_closed_ACC03_1",
+        "control_type": "ACC03",
+        "time_span": "1",
+        "mean": "18.967"
+    },
+    {
+        "item": "delta_new_closed_ACC03_2",
+        "control_type": "ACC03",
+        "time_span": "2",
+        "mean": "15.142"
+    },
+    {
+        "item": "delta_new_closed_ACC03_3",
+        "control_type": "ACC03",
+        "time_span": "3",
+        "mean": "17.793"
+    },
+    {
+        "item": "delta_new_closed_ACC17_1",
+        "control_type": "ACC17",
+        "time_span": "1",
+        "mean": "23.923"
+    },
+    {
+        "item": "delta_new_closed_ACC17_2",
+        "control_type": "ACC17",
+        "time_span": "2",
+        "mean": "13.318"
+    },
+    {
+        "item": "delta_new_closed_ACC17_3",
+        "control_type": "ACC17",
+        "time_span": "3",
+        "mean": "13.164"
+    },
+    {
+        "item": "delta_new_closed_ACC28_1",
+        "control_type": "ACC28",
+        "time_span": "1",
+        "mean": "28.045"
+    },
+    {
+        "item": "delta_new_closed_ACC28_2",
+        "control_type": "ACC28",
+        "time_span": "2",
+        "mean": "23.404"
+    },
+    {
+        "item": "delta_new_closed_ACC28_3",
+        "control_type": "ACC28",
+        "time_span": "3",
+        "mean": "18.697"
+    },
+    {
+        "item": "delta_new_closed_AUTH18_1",
+        "control_type": "AUTH18",
+        "time_span": "1",
+        "mean": "45.244"
+    },
+    {
+        "item": "delta_new_closed_AUTH18_2",
+        "control_type": "AUTH18",
+        "time_span": "2",
+        "mean": "24.244"
+    },
+    {
+        "item": "delta_new_closed_AUTH18_3",
+        "control_type": "AUTH18",
+        "time_span": "3",
+        "mean": "26.379"
+    },
+    {
+        "item": "delta_new_closed_AUTH42_1",
+        "control_type": "AUTH42",
+        "time_span": "1",
+        "mean": "73.218"
+    },
+    {
+        "item": "delta_new_closed_AUTH42_2",
+        "control_type": "AUTH42",
+        "time_span": "2",
+        "mean": "68.057"
+    },
+    {
+        "item": "delta_new_closed_AUTH42_3",
+        "control_type": "AUTH42",
+        "time_span": "3",
+        "mean": "62.261"
+    }
+]

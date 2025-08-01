@@ -1,18 +1,18 @@
 import argparse
-from defectSimulation_v3 import defectRemediationSimulator
+from DefectSimulation import DefectRemediationSimulator
 from initialize_simulation import initialize_simulation
 from backlog_simulation import backlog_simulation
-from visualize_simulation_v2 import visualize_simulation, visualize_generation_distributions, visualize_remediation_distributions
+from visualize_simulation import visualize_simulation, visualize_generation_distributions, visualize_remediation_distributions
 
 
 #### INPUT PARAMETERS ####
 parser = argparse.ArgumentParser(exit_on_error=False)
 parser.add_argument('--defect_labels', type=str, help="List defect types to simulate seperated by , (example: 'type1, type2, type3')")
 parser.add_argument('--defect_priority', type=str, help="List defect priorities (whole numbers) for each defect type in --defect_labels (lower = higher priority) seperated by , (example: '11, 3, 5')")
-parser.add_argument('--maxValue_generation', type=str, help="List max value of incoming defect distribution (whole numbers) for each defect type in --defect_labels seperated by , (example: '1, 2, 3')")
-parser.add_argument('--maxValue_remediation', type=str, help="List max value of remediation time distribution (floating point values) for each defect type in --defect_labels seperated by , (example: '3.5, 4, 5.5')")
-parser.add_argument('--skewness_generation', type=str, help="List skewness of incoming defect distribution for each defect type in --defect_labels seperated by , (example: '')")
-parser.add_argument('--skewness_remediation', type=str, help="List skewness of remediation time distribution for each defect type in --defect_labels seperated by , (example: '')")
+# parser.add_argument('--maxValue_generation', type=str, help="List max value of incoming defect distribution (whole numbers) for each defect type in --defect_labels seperated by , (example: '1, 2, 3')")
+# parser.add_argument('--maxValue_remediation', type=str, help="List max value of remediation time distribution (floating point values) for each defect type in --defect_labels seperated by , (example: '3.5, 4, 5.5')")
+# parser.add_argument('--skewness_generation', type=str, help="List skewness of incoming defect distribution for each defect type in --defect_labels seperated by , (example: '')")
+# parser.add_argument('--skewness_remediation', type=str, help="List skewness of remediation time distribution for each defect type in --defect_labels seperated by , (example: '')")
 parser.add_argument('--initial_backlogs', type=str, help="List initial number of backlogged defects for each defect type in --defect_labels seperated by , (example: '')")
 parser.add_argument('--t_end', type=float, help='End time for remediation simulation, in hours')
 parser.add_argument('--resources', type=int, help='Available parallel resources for treatment of defects')

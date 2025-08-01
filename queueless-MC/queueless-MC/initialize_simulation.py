@@ -16,10 +16,10 @@ def initialize_simulation(args):
     #### Initialization variables ####
     defect_labels = args.defect_labels.split(', ')
     defect_priority = list(map(int, args.defect_priority.split(', ')))
-    maxValue_generation = list(map(float, args.maxValue_generation.split(', ')))
-    maxValue_remediation = list(map(float, args.maxValue_remediation.split(', ')))
-    skewness_generation = list(map(int, args.skewness_generation.split(', ')))
-    skewness_remediation = list(map(int, args.skewness_remediation.split(', ')))
+    # maxValue_generation = list(map(float, args.maxValue_generation.split(', ')))
+    # maxValue_remediation = list(map(float, args.maxValue_remediation.split(', ')))
+    # skewness_generation = list(map(int, args.skewness_generation.split(', ')))
+    # skewness_remediation = list(map(int, args.skewness_remediation.split(', ')))
     initial_backlogs = list(map(int, args.initial_backlogs.split(', ')))
     #### Simulation variables ####
     t_end = args.t_end
@@ -30,17 +30,17 @@ def initialize_simulation(args):
     #### Simulation instantiation ####
     defect_simulation = DefectRemediationSimulator(defect_labels,
                                                    defect_priority,
-                                                   maxValue_generation,
-                                                   maxValue_remediation,
-                                                   skewness_generation,
-                                                   skewness_remediation,
+                                                #    maxValue_generation,
+                                                #    maxValue_remediation,
+                                                #    skewness_generation,
+                                                #    skewness_remediation,
                                                    initial_backlogs,
                                                    t_end,
                                                    resources,
                                                    resources_qmax)
 
     defect_type_dict = defect_simulation.generate_type_dict() # map defect type to corresponing poisson_rate, skewness and initial_backlogs
-    generation_distributions, remediation_distributions = defect_simulation.generate_distributions() # generate remediation time distribution for each defect type
+    generation_distributions, remediation_distributions = defect_simulation.import_distributions() # generate remediation time distribution for each defect type
     dt = defect_simulation.compute_time_step()
     ### histogram of distributions
     return defect_simulation, defect_type_dict, generation_distributions, remediation_distributions, dt
