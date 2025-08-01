@@ -1,6 +1,7 @@
 import matplotlib.pyplot as plt
 from itertools import count
 import numpy as np
+import contextlib
 
 
 def visualize_simulation(comparison_dict):
@@ -17,15 +18,20 @@ def visualize_simulation(comparison_dict):
     for trial in comparison_dict.keys():
         t_end = int(comparison_dict[trial]['t_end'])
         hours = list(range(t_end+1))
-        initial_backlog = sum([1 for key in comparison_dict[trial]['defect_log'].keys() if comparison_dict[trial]['defect_log'][key]['t_created'] == 0])
+        # initial_backlog = sum([1 for key in comparison_dict[trial]['defect_log'].keys() if comparison_dict[trial]['defect_log'][key]['t_created'] == 0])
+        initial_backlog = sum(
+            1 
+            for key in comparison_dict[trial]['defect_log'].keys()
+            if comparison_dict[trial]['defect_log'][key]['t_created'] == 0)
         defects_created[trial] = {}
         defects_remediated[trial] = {}
         for key in comparison_dict[trial]['defect_log'].keys():
             defects_created[trial][key] = comparison_dict[trial]['defect_log'][key]['t_created']
-            try:
+            # try:
+            with contextlib.suppress(KeyError):
                 defects_remediated[trial][key] = comparison_dict[trial]['defect_log'][key]['processing_end_time']
-            except KeyError:
-                pass
+            # except KeyError:
+            #     pass
 
         list_remediated[trial] = [defects_remediated[trial][key] for key in defects_remediated[trial].keys()]
         list_remediated_forplot[trial] = [defects_remediated[trial][key][0] for key in defects_remediated[trial].keys()] # remove the np.ndarray for the values to be plotted
@@ -126,16 +132,16 @@ def visualize_generation_distributions(defect_type_dict, incoming_defects_dict, 
         right_of_last_bin = data.max() + float(d)/2
         if len(defect_type_dict.keys()) > 1:
             axs[index].hist(incoming_defects[value], np.arange(left_of_first_bin, right_of_last_bin + d, d), label=f'{len(incoming_defects[value])} samples', color='#C21445', alpha=0.2, edgecolor='black', linewidth=1.5, density=True)
-            axs[index].hist(data, np.arange(left_of_first_bin, right_of_last_bin + d, d), label=f"theory, α={defect_type_dict[value]['skewness_incoming']}", linewidth=2, color='#C21445', density=True, histtype='step')
+            axs[index].hist(data, np.arange(left_of_first_bin, right_of_last_bin + d, d), label="empirical data", linewidth=2, color='#C21445', density=True, histtype='step')
             # axs[0].set_title('Type 1', fontsize=10, **tnrfont)
-            axs[index].set_title(f'Type {value[-1]}', loc='left', fontsize=14, **csfont)
+            axs[index].set_title(f'{value}', loc='left', fontsize=14, **csfont)
             axs[index].legend(loc='upper right', bbox_to_anchor=(1.02, 1.13), fontsize='x-small')
             axs[index].set_xticks(np.unique(data))
         else:
             axs.hist(incoming_defects[value], np.arange(left_of_first_bin, right_of_last_bin + d, d), label=f'{len(incoming_defects[value])} samples', color='#C21445', alpha=0.2, edgecolor='black', linewidth=1.5, density=True)
-            axs.hist(data, np.arange(left_of_first_bin, right_of_last_bin + d, d), label=f"theory, α={defect_type_dict[value]['skewness_incoming']}", linewidth=2, color='#C21445', density=True, histtype='step')
+            axs.hist(data, np.arange(left_of_first_bin, right_of_last_bin + d, d), label="empirical data", linewidth=2, color='#C21445', density=True, histtype='step')
             # axs[0].set_title('Type 1', fontsize=10, **tnrfont)
-            axs.set_title(f'Type {value[-1]}', loc='left', fontsize=14, **csfont)
+            axs.set_title(f'{value}', loc='left', fontsize=14, **csfont)
             axs.legend(loc='upper right', bbox_to_anchor=(1.02, 1.13), fontsize='x-small')
             axs.set_xticks(np.unique(data))
     if len(defect_type_dict.keys()) > 1:
@@ -159,15 +165,15 @@ def visualize_remediation_distributions(defect_type_dict, comparison_dict, remed
         fig, axs = plt.subplots (1, len(defect_type_dict.keys()), figsize=(16,4))
         for index, value in enumerate(defect_type_dict.keys()):
             axs[index].hist(incoming_remediations[value], label=f'{len(incoming_remediations[value])} samples', color='#2348FF', alpha=0.2, edgecolor='black', linewidth=1.5, density=True)
-            axs[index].hist(remediation_distributions[value], label=f"theory, α={defect_type_dict[value]['skewness_outgoing']}", histtype='step', linewidth=2, color='#2348FF', density=True)
-            axs[index].set_title(f'Type {value[-1]}', loc='left', fontsize=14, **csfont)
+            axs[index].hist(remediation_distributions[value], label="empirical data", histtype='step', linewidth=2, color='#2348FF', density=True)
+            axs[index].set_title(f'{value}', loc='left', fontsize=14, **csfont)
             axs[index].legend(loc='upper right', bbox_to_anchor=(1.02, 1.13), fontsize='x-small')
     else:
         fig, axs = plt.subplots (1, len(defect_type_dict.keys()), figsize=(8,4))
         for key in defect_type_dict.keys():
             axs.hist(incoming_remediations[key], label=f'{len(incoming_remediations[key])} samples', color='#2348FF', alpha=0.2, edgecolor='black', linewidth=1.5, density=True)
-            axs.hist(remediation_distributions[key], label=f"theory, α={defect_type_dict[key]['skewness_outgoing']}", histtype='step', linewidth=2, color='#2348FF', density=True)
-            axs.set_title(f'Type {key[-1]}', loc='left', fontsize=14, **csfont)
+            axs.hist(remediation_distributions[key], label="empirical data", histtype='step', linewidth=2, color='#2348FF', density=True)
+            axs.set_title(f'{key}', loc='left', fontsize=14, **csfont)
             axs.legend(loc='upper right', bbox_to_anchor=(1.02, 1.13), fontsize='x-small')
 
     if len(defect_type_dict.keys()) > 1:
