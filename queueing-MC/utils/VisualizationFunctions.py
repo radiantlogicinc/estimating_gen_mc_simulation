@@ -1,123 +1,9 @@
 import matplotlib.pyplot as plt
-from itertools import count
 import numpy as np
 
-
-def visualize_simulation(comparison_dict):
-    #### VISUALIZATION ####
-    defects_created = {}
-    defects_remediated = {}
-    list_remediated = {}
-    list_remediated_forplot = {}
-    times = {}
-    times_forplot = {}
-    backlog = {}
-
-    #### Reconstructing the backlog - defects generated and remediated ####
-    for trial in comparison_dict.keys():
-        t_end = int(comparison_dict[trial]['t_end'])
-        hours = list(range(t_end+1))
-        initial_backlog = sum([1 for key in comparison_dict[trial]['defect_log'].keys() if comparison_dict[trial]['defect_log'][key]['t_created'] == 0])
-        defects_created[trial] = {}
-        defects_remediated[trial] = {}
-        for key in comparison_dict[trial]['defect_log'].keys():
-            defects_created[trial][key] = comparison_dict[trial]['defect_log'][key]['t_created']
-            try:
-                defects_remediated[trial][key] = comparison_dict[trial]['defect_log'][key]['processing_end_time']
-            except KeyError:
-                pass
-
-        list_remediated[trial] = [defects_remediated[trial][key] for key in defects_remediated[trial].keys()]
-        list_remediated_forplot[trial] = [defects_remediated[trial][key][0] for key in defects_remediated[trial].keys()] # remove the np.ndarray for the values to be plotted
-        times[trial] = sorted(list(range(t_end+1)) + list_remediated[trial]) # keep np.ndarray to distinguish between "on the hour" generated and remediated
-        times_forplot[trial] = sorted(list(range(t_end+1)) + list_remediated_forplot[trial])
-        backlog[trial] = []
-
-        niter = count(0)
-        for t in times[trial]:
-            if t == 0:
-                backlog[trial].append(initial_backlog)
-            elif type(t) == np.ndarray:
-                value = backlog[trial][next(niter)] - 1
-                backlog[trial].append(value)
-            elif t in list(defects_created[trial].values()):
-                res = sum(int(value) == t for value in defects_created[trial].values())
-                value = backlog[trial][next(niter)] + res
-                backlog[trial].append(value)
-            else:
-                backlog[trial].append(backlog[trial][next(niter)])
-
-    backlog_max = max(i for v in backlog.values() for i in v)
-    backlog_min = min(i for v in backlog.values() for i in v)
-
-    visualize_boxplot(hours, times_forplot, backlog)
-
-
-def reconstruct_backlog(comparison_dict):
-    defects_created = {}
-    defects_remediated = {}
-    list_remediated = {}
-    list_remediated_forplot = {}
-    times = {}
-    times_forplot = {}
-    backlog = {}
-
-    #### Reconstructing the backlog - defects generated and remediated ####
-    for trial in comparison_dict.keys():
-        t_end = int(comparison_dict[trial]['t_end'])
-        hours = list(range(t_end+1))
-        initial_backlog = sum([1 for key in comparison_dict[trial]['defect_log'].keys() if comparison_dict[trial]['defect_log'][key]['t_created'] == 0])
-        defects_created[trial] = {}
-        defects_remediated[trial] = {}
-        for key in comparison_dict[trial]['defect_log'].keys():
-            defects_created[trial][key] = comparison_dict[trial]['defect_log'][key]['t_created']
-            try:
-                defects_remediated[trial][key] = comparison_dict[trial]['defect_log'][key]['processing_end_time']
-            except KeyError:
-                pass
-
-        list_remediated[trial] = [defects_remediated[trial][key] for key in defects_remediated[trial].keys()]
-        list_remediated_forplot[trial] = [defects_remediated[trial][key][0] for key in defects_remediated[trial].keys()] # remove the np.ndarray for the values to be plotted
-        times[trial] = sorted(list(range(t_end+1)) + list_remediated[trial]) # keep np.ndarray to distinguish between "on the hour" generated and remediated
-        times_forplot[trial] = sorted(list(range(t_end+1)) + list_remediated_forplot[trial])
-        backlog[trial] = []
-
-        niter = count(0)
-        for t in times[trial]:
-            if t == 0:
-                backlog[trial].append(initial_backlog)
-            elif type(t) == np.ndarray:
-                value = backlog[trial][next(niter)] - 1
-                backlog[trial].append(value)
-            elif t in list(defects_created[trial].values()):
-                res = sum(int(value) == t for value in defects_created[trial].values())
-                value = backlog[trial][next(niter)] + res
-                backlog[trial].append(value)
-            else:
-                backlog[trial].append(backlog[trial][next(niter)])
-
-    backlog_max = max(i for v in backlog.values() for i in v)
-    backlog_min = min(i for v in backlog.values() for i in v)
-
-def reconstruct_incoming_defects(defect_type_dict, incoming_defects_dict, generation_distributions):
-    incoming_defects = {key: [] for key in defect_type_dict.keys()}
-
-    for trial in incoming_defects_dict.keys():
-        for key in incoming_defects_dict[trial].keys():
-            # incoming_defects[key].append(incoming_defects_dict[trial][key])
-            incoming_defects[key] = incoming_defects[key] + incoming_defects_dict[trial][key]
-
-    csfont = {'fontname':'Arial'}
-    if len(defect_type_dict.keys()) > 1:
-        fig, axs = plt.subplots (1, len(defect_type_dict.keys()), figsize=(12,4))
-    else:
-        fig, axs = plt.subplots (1, len(defect_type_dict.keys()), figsize=(8,4))
-
-    for index, value in enumerate(defect_type_dict.keys()):
-        data = np.array(generation_distributions[value])
-
-def reconstruct_remediations(defect_type_dict, comparison_dict, remediation_distributions):
-    pass
+# class VisualizationFunctions:
+def __init__(self):
+    self.csfont = {'fontname':'Arial'}
 
 def visualize_boxplot(hours, times_forplot, backlog):
     #### Constructing and visualizing the box plots per unit of time ####
@@ -142,13 +28,11 @@ def visualize_boxplot(hours, times_forplot, backlog):
 
     fig, ax = plt.subplots(1, 1, figsize=(10,4))
 
-
-
     bplot = ax.boxplot(list(hourly_stats.values()),
-                       labels=hours[1:],
-                       patch_artist=True,
-                       sym='',
-                       notch=False) # each box plot at time_step corresponds to the averaged data from [time_step-1, time_step)
+                    labels=hours[1:],
+                    patch_artist=True,
+                    sym='',
+                    notch=False) # each box plot at time_step corresponds to the averaged data from [time_step-1, time_step)
     for patch, color in zip(bplot['boxes'], colors):
         patch.set_facecolor(color)
 
@@ -166,7 +50,6 @@ def visualize_boxplot(hours, times_forplot, backlog):
     ax.set_ylabel('defects backlog\n(average/hour)', fontsize=14, **csfont)
     # ax.legend()
     plt.show()
-
 
 def visualize_generation_distributions(defect_type_dict, incoming_defects_dict, generation_distributions):
     incoming_defects = {key: [] for key in defect_type_dict.keys()}
@@ -214,7 +97,7 @@ def visualize_generation_distributions(defect_type_dict, incoming_defects_dict, 
     plt.show()
 
 
-def visualize_remediation_distributions(defect_type_dict, comparison_dict, remediation_distributions):
+def visualize_remediation_distributions(length, defect_type_dict, comparison_dict, remediation_distributions):
     incoming_remediations = {key: [] for key in defect_type_dict.keys()}
 
     for trial in comparison_dict.keys():
@@ -223,7 +106,7 @@ def visualize_remediation_distributions(defect_type_dict, comparison_dict, remed
 
     csfont = {'fontname':'Arial'}
     
-    if len(defect_type_dict.keys()) > 1:
+    if length > 1:
         fig, axs = plt.subplots (1, len(defect_type_dict.keys()), figsize=(12,4))
         for index, value in enumerate(defect_type_dict.keys()):
             axs[index].hist(incoming_remediations[value], label=f'{len(incoming_remediations[value])} samples', color='#D3DAFF', edgecolor='#969696', linewidth=1.5, density=True)
@@ -244,3 +127,39 @@ def visualize_remediation_distributions(defect_type_dict, comparison_dict, remed
         axs.set_ylabel('density', fontsize=14, **csfont)
     fig.text(0.5, 0, 'remediation time (hrs)', ha='center', fontsize=14, **csfont)
     plt.show()
+
+def visualize_histograms_theory(self, fig, axs, index, data, label=None, title=None, color='black', step=False):
+    data = np.array(data)
+    unique_values = np.unique(data)
+    d = 1 if np.all(unique_values) == 0 else np.diff(unique_values).min()
+    left_of_first_bin = data.min() - float(d)/2
+    right_of_last_bin = data.max() + float(d)/2
+
+    if step:
+        axs[index].hist(data,
+                    np.arange(left_of_first_bin, right_of_last_bin + d, d),
+                    label=label,
+                    linewidth=1.5,
+                    density=True,
+                    color=color,
+                    histtype='step')
+    else:
+        axs[index].hist(data,
+                        np.arange(left_of_first_bin, right_of_last_bin + d, d),
+                        label=label,
+                        linewidth=1.5,
+                        density=True,
+                        color=color,
+                        alpha=0.5,
+                        edgecolor='black')
+    if title:
+        axs[index].set_title(title, loc='left', fontsize=12, **self.csfont)
+    return fig, axs
+
+def visualize_timeline(self, fig, axs, index, xdata, ydata, ylabel=None, title=None):
+    axs[index].plot(xdata, ydata, 'k-o', markersize=6)
+    if ylabel:
+        axs[index].set_ylabel(ylabel, **self.csfont)
+    if title:
+        axs[index].set_title(title, loc='left', fontsize=10, **self.csfont)
+    return fig, axs

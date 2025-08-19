@@ -52,7 +52,7 @@ class ResponseGenerator:
             f'Context: {workflow.current_command_context_displayname}\n'
             f'Command: {command}\n'
             f'Command parameters: {command_parameters}\n'
-            f'Response: The message was printed to the screen'
+            f'Response: The response was printed to the screen'
         )
 
         return fastworkflow.CommandOutput(

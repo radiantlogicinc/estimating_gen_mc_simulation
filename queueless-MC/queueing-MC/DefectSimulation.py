@@ -132,9 +132,9 @@ class DefectRemediationSimulator:
         minvals = []
         for defect_type in self.defect_type_dict.keys():
             temp_list = np.array(self.remediation_distributions[defect_type].copy())
-            print(temp_list)
+            # print(temp_list)
             try:
-                print(np.nonzero(temp_list))
+                # print(np.nonzero(temp_list))
                 min_sample = np.min(temp_list[np.nonzero(temp_list)])
                 if min_sample < 1: # min sample must be less than the defect generation time step = 1 hr
                     minvals.append(min_sample)
