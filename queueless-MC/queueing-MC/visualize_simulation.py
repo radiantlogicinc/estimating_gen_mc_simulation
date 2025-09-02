@@ -2,7 +2,7 @@ import matplotlib.pyplot as plt
 from itertools import count
 import numpy as np
 import contextlib
-
+from matplotlib import animation
 
 def visualize_simulation(comparison_dict):
     #### VISUALIZATION ####
@@ -100,10 +100,75 @@ def visualize_boxplot(hours, times_forplot, backlog):
     # ax.fill_between(hours[1:], min_curve, max_curve, color='purple', alpha=0.1)
     ax.set_xticks(hours[::10], labels=hours[::10])
     ax.set_xlim(0, max(times_forplot[trial]))
-    ax.set_xlabel('times (hrs)', fontsize=14, **csfont)
-    ax.set_ylabel('defects backlog\n(average/hour)', fontsize=14, **csfont)
+    ax.set_xlabel('times (hrs)', fontsize=16, **csfont)
+    ax.set_ylabel('defects backlog\n(average/hour)', fontsize=16, **csfont)
     # ax.legend()
+    fig.tight_layout()
     plt.show()
+
+    #### ANIMATION ####
+    # fig, ax = plt.subplots(figsize=(12,4))
+
+    # line_trial1 = ax.plot(times_forplot['trial1'], backlog['trial1'], ':', linewidth=1, color='black', alpha=0.7)[0]
+    # line_trial2 = ax.plot(times_forplot['trial2'], backlog['trial2'], ':', linewidth=1, color='black', alpha=0.7)[0]
+    # line_trial3 = ax.plot(times_forplot['trial3'], backlog['trial3'], ':', linewidth=1, color='black', alpha=0.7)[0]
+    # line_trial4 = ax.plot(times_forplot['trial4'], backlog['trial4'], ':', linewidth=1, color='black', alpha=0.7)[0]
+    # line_trial5 = ax.plot(times_forplot['trial5'], backlog['trial5'], ':', linewidth=1, color='black', alpha=0.7)[0]
+
+    # colors = ['#2348FF' if value < max(median_curve)*0.2 else '#C21445' for value in median_curve]
+
+    # ax.set(xlim=[0, hours[-1]], ylim=[0,50])
+    # ax.set_xticks(hours[::10], labels=hours[::10])
+    # ax.set_xlabel('time (hrs)', fontsize=16, **csfont)
+    # ax.set_ylabel('defect backlog\n(average/hour)', fontsize=16, **csfont)
+    # fig.tight_layout()
+
+    # def update(frame):
+    #     if frame <= 20:
+    #         line_trial1.set_xdata(times_forplot['trial1'][:5*frame])
+    #         line_trial1.set_ydata(backlog['trial1'][:5*frame])
+
+    #         line_trial2.set(visible=False)
+    #         line_trial3.set(visible=False)
+    #         line_trial4.set(visible=False)
+    #         line_trial5.set(visible=False)
+    #     elif (frame > 20) and (frame <= 40):
+    #         line_trial2.set(visible=True)
+    #         line_trial2.set_xdata(times_forplot['trial2'][:5*(frame-20)])
+    #         line_trial2.set_ydata(backlog['trial2'][:5*(frame-20)])
+    #     elif (frame > 40) and (frame <= 60):
+    #         line_trial3.set(visible=True)
+    #         line_trial3.set_xdata(times_forplot['trial3'][:5*(frame-40)])
+    #         line_trial3.set_ydata(backlog['trial3'][:5*(frame-40)])
+    #     elif (frame > 60) and (frame <= 80):
+    #         line_trial4.set(visible=True)
+    #         line_trial4.set_xdata(times_forplot['trial4'][:5*(frame-60)])
+    #         line_trial4.set_ydata(backlog['trial4'][:5*(frame-60)])
+    #     elif (frame > 80) and (frame <= 100):
+    #         line_trial5.set(visible=True)
+    #         line_trial5.set_xdata(times_forplot['trial5'][:5*(frame-80)])
+    #         line_trial5.set_ydata(backlog['trial5'][:5*(frame-80)])
+    #     else:
+    #         ax.cla()  # <-- clear the subplot otherwise boxplot shows previous frame
+    #         ax.set(xlim=[0, hours[-1]], ylim=[0,50])
+    #         ax.set_xlabel('time (hrs)', fontsize=16, **csfont)
+    #         ax.set_ylabel('defect backlog\n(average/hour)', fontsize=16, **csfont)
+    #         ax.plot(times_forplot['trial1'], backlog['trial1'], ':', linewidth=1, color='black', alpha=0.7)[0]
+    #         ax.plot(times_forplot['trial2'], backlog['trial2'], ':', linewidth=1, color='black', alpha=0.7)[0]
+    #         ax.plot(times_forplot['trial3'], backlog['trial3'], ':', linewidth=1, color='black', alpha=0.7)[0]
+    #         ax.plot(times_forplot['trial4'], backlog['trial4'], ':', linewidth=1, color='black', alpha=0.7)[0]
+    #         ax.plot(times_forplot['trial5'], backlog['trial5'], ':', linewidth=1, color='black', alpha=0.7)[0]
+    #         bplot = ax.boxplot(list(hourly_stats.values())[:(frame-100)],
+    #                 patch_artist=True,
+    #                 manage_ticks=False,
+    #                 sym='',
+    #                 notch=False)
+    #         for index, patch in enumerate(bplot['boxes']):
+    #             patch.set_facecolor(colors[index])
+    #         fig.tight_layout()
+
+    # ani = animation.FuncAnimation(fig=fig, func=update, frames=160, interval=500)
+    # ani.save('boxplot2.gif', writer='pillow',fps=7,dpi=100)
 
 
 def visualize_generation_distributions(defect_type_dict, incoming_defects_dict, generation_distributions):
@@ -134,21 +199,22 @@ def visualize_generation_distributions(defect_type_dict, incoming_defects_dict, 
             axs[index].hist(incoming_defects[value], np.arange(left_of_first_bin, right_of_last_bin + d, d), label=f'{len(incoming_defects[value])} samples', color='#C21445', alpha=0.2, edgecolor='black', linewidth=1.5, density=True)
             axs[index].hist(data, np.arange(left_of_first_bin, right_of_last_bin + d, d), label="empirical data", linewidth=2, color='#C21445', density=True, histtype='step')
             # axs[0].set_title('Type 1', fontsize=10, **tnrfont)
-            axs[index].set_title(f'{value}', loc='left', fontsize=14, **csfont)
+            axs[index].set_title(f'{value}', loc='left', fontsize=16, **csfont)
             axs[index].legend(loc='upper right', bbox_to_anchor=(1.02, 1.13), fontsize='x-small')
             axs[index].set_xticks(np.unique(data))
         else:
             axs.hist(incoming_defects[value], np.arange(left_of_first_bin, right_of_last_bin + d, d), label=f'{len(incoming_defects[value])} samples', color='#C21445', alpha=0.2, edgecolor='black', linewidth=1.5, density=True)
             axs.hist(data, np.arange(left_of_first_bin, right_of_last_bin + d, d), label="empirical data", linewidth=2, color='#C21445', density=True, histtype='step')
             # axs[0].set_title('Type 1', fontsize=10, **tnrfont)
-            axs.set_title(f'{value}', loc='left', fontsize=14, **csfont)
+            axs.set_title(f'{value}', loc='left', fontsize=16, **csfont)
             axs.legend(loc='upper right', bbox_to_anchor=(1.02, 1.13), fontsize='x-small')
             axs.set_xticks(np.unique(data))
     if len(defect_type_dict.keys()) > 1:
-        axs[0].set_ylabel('density', fontsize=14, **csfont)
+        axs[0].set_ylabel('density', fontsize=16, **csfont)
     else:
-        axs.set_ylabel('density', fontsize=14, **csfont)
-    fig.text(0.5, 0, '# incoming defects per hour', ha='center', fontsize=14, **csfont)
+        axs.set_ylabel('density', fontsize=16, **csfont)
+    fig.text(0.5, 0, '# incoming defects per hour', ha='center', fontsize=16, **csfont)
+    fig.tight_layout()
     plt.show()
 
 
@@ -166,19 +232,20 @@ def visualize_remediation_distributions(defect_type_dict, comparison_dict, remed
         for index, value in enumerate(defect_type_dict.keys()):
             axs[index].hist(incoming_remediations[value], label=f'{len(incoming_remediations[value])} samples', color='#2348FF', alpha=0.2, edgecolor='black', linewidth=1.5, density=True)
             axs[index].hist(remediation_distributions[value], label="empirical data", histtype='step', linewidth=2, color='#2348FF', density=True)
-            axs[index].set_title(f'{value}', loc='left', fontsize=14, **csfont)
+            axs[index].set_title(f'{value}', loc='left', fontsize=16, **csfont)
             axs[index].legend(loc='upper right', bbox_to_anchor=(1.02, 1.13), fontsize='x-small')
     else:
         fig, axs = plt.subplots (1, len(defect_type_dict.keys()), figsize=(8,4))
         for key in defect_type_dict.keys():
             axs.hist(incoming_remediations[key], label=f'{len(incoming_remediations[key])} samples', color='#2348FF', alpha=0.2, edgecolor='black', linewidth=1.5, density=True)
             axs.hist(remediation_distributions[key], label="empirical data", histtype='step', linewidth=2, color='#2348FF', density=True)
-            axs.set_title(f'{key}', loc='left', fontsize=14, **csfont)
+            axs.set_title(f'{key}', loc='left', fontsize=16, **csfont)
             axs.legend(loc='upper right', bbox_to_anchor=(1.02, 1.13), fontsize='x-small')
 
     if len(defect_type_dict.keys()) > 1:
-        axs[0].set_ylabel('density', fontsize=14, **csfont)
+        axs[0].set_ylabel('density', fontsize=16, **csfont)
     else:
-        axs.set_ylabel('density', fontsize=14, **csfont)
-    fig.text(0.5, 0, 'remediation time (hrs)', ha='center', fontsize=14, **csfont)
+        axs.set_ylabel('density', fontsize=16, **csfont)
+    fig.text(0.5, 0, 'remediation time (hrs)', ha='center', fontsize=16, **csfont)
+    fig.tight_layout()
     plt.show()

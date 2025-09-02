@@ -42,10 +42,6 @@ class FastWorkflowFunctions:
         self.generated_per_day()
         self.remediated_per_day()
         self.state_deltas()
-        # self.delta_new_assign()
-        # self.delta_assign_inprogress()
-        # self.delta_inprogress_closed()
-        # self.delta_new_closed()
         return self.sub_dict
 
     def generated_per_day(self):
@@ -81,44 +77,3 @@ class FastWorkflowFunctions:
             self.update_sub_dict_deltas(item, 'month', value)
             # all time
             self.update_sub_dict_deltas(item, 'all_time', np.round(np.mean(list(self.timedeltas_dict[self.control_type][items[i]].values())), 2))
-
-    # def delta_new_assign(self):
-    #     item = 'delta_new_assign'
-    #     self.update_sub_dict_deltas(item, '1', self.sub_deltas_df.filter(pl.col('Date_Assign').is_between(self.current_date-datetime.timedelta(days=1),
-    #                                                                self.current_date,
-    #                                                                closed = 'both')).mean()['Delta_New_Assign'][0])
-    #     self.update_sub_dict_deltas(item, '2', self.sub_deltas_df.filter(pl.col('Date_Assign').is_between(self.current_date-datetime.timedelta(days=90),
-    #                                                                self.current_date,
-    #                                                                closed = 'both')).mean()['Delta_New_Assign'][0])
-    #     self.update_sub_dict_deltas(item, '3', self.sub_deltas_df.mean()['Delta_New_Assign'][0])
-        
-
-    # def delta_assign_inprogress(self):
-    #     item = 'delta_assign_inprogress'
-    #     self.update_sub_dict_deltas(item, '1', self.sub_deltas_df.filter(pl.col('Date_InProgress').is_between(self.current_date-datetime.timedelta(days=1),
-    #                                                                self.current_date,
-    #                                                                closed = 'both')).mean()['Delta_Assign_InProgress'][0])
-    #     self.update_sub_dict_deltas(item, '2', self.sub_deltas_df.filter(pl.col('Date_InProgress').is_between(self.current_date-datetime.timedelta(days=90),
-    #                                                                self.current_date,
-    #                                                                closed = 'both')).mean()['Delta_Assign_InProgress'][0])
-    #     self.update_sub_dict_deltas(item, '3', self.sub_deltas_df.mean()['Delta_Assign_InProgress'][0])
-
-    # def delta_inprogress_closed(self):
-    #     item = 'delta_inprogress_closed'
-    #     self.update_sub_dict_deltas(item, '1', self.sub_deltas_df.filter(pl.col('Date_Closed').is_between(self.current_date-datetime.timedelta(days=1),
-    #                                                                self.current_date,
-    #                                                                closed = 'both')).mean()['Delta_InProgress_Closed'][0])
-    #     self.update_sub_dict_deltas(item, '2', self.sub_deltas_df.filter(pl.col('Date_Closed').is_between(self.current_date-datetime.timedelta(days=90),
-    #                                                                self.current_date,
-    #                                                                closed = 'both')).mean()['Delta_InProgress_Closed'][0])
-    #     self.update_sub_dict_deltas(item, '3', self.sub_deltas_df.mean()['Delta_InProgress_Closed'][0])
-
-    # def delta_new_closed(self):
-    #     item = 'delta_new_closed'
-    #     self.update_sub_dict_deltas(item, '1', self.sub_deltas_df.filter(pl.col('Date_Closed').is_between(self.current_date-datetime.timedelta(days=1),
-    #                                                                self.current_date,
-    #                                                                closed = 'both')).mean()['Delta_New_Closed'][0])
-    #     self.update_sub_dict_deltas(item, '2', self.sub_deltas_df.filter(pl.col('Date_Closed').is_between(self.current_date-datetime.timedelta(days=90),
-    #                                                                self.current_date,
-    #                                                                closed = 'both')).mean()['Delta_New_Closed'][0])
-    #     self.update_sub_dict_deltas(item, '3', self.sub_deltas_df.mean()['Delta_New_Closed'][0])
