@@ -6,13 +6,18 @@ This work represents a research project in three parts:
 #### `queueing-MC` Timeline estimations with a black box generalized Monte Carlo method for modeling defect remediation as a queueing optimization problem
 In this problem, we are concerned with building an optimized plan for remediation of defects. We consider that defects are both *incoming* (being generated) and *outgoing* (being remediated) in parallel, although the events occur at non-consistent intervals throughout the simulation. Individual circumstances such as any existing backlogged defects, the priority ranking of defects, and resource and time constraints, are also considered.
 
-![Figure 1: Application flow diagram.](defectRemediation_flowChart_v5.png)
+<p align="center">
+  <img src="img/defectRemediation_flowChart_v5.png" />
+</p>
 
 **Problem set-up**
 
 The problem is divided into two stages, an initialization stage (orange-shaded regions in Figs. 1 and 2) and a simulation stage. In the former, we are concerned with setting up the backlog and processing queues based on the initial conditions prior to the start of the simulation. The simulation stage is governed by the `times` vector, with defect *generation* (red-shaded regions in Figs. 1 and 2) and defect *remediation* events (blue-shaded regions in Figs. 1 and 2) occuring at any point in time *t*.
 
-![Figure 2: System diagram of class `defectRemediationSimulator`. The methods of this class related to each step of the simulation are indicated.](defectRemediation_systemDiagram_v4.png)
+
+<p align="center">
+  <img src="img/defectRemediation_systemDiagram_v4.png" />
+</p>
 
 
 **Simulation input parameters**
