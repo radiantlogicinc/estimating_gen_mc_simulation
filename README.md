@@ -15,9 +15,9 @@ In industrial contexts, defect remediation is the process by which defects, or u
 the characterization of the defect remediation process as an AI-enhanced black box generalized Monte Carlo optimization problem.
 
 This work represents a research project in three parts:
-- `queueing-MC`: forecasting defect remediation with a black box generalized Monte Carlo queueing model
-- `queueless-MC`: instantiating the generalized Monte Carlo simulations with historical empirical log data
-- `defect_remediation_app`: AI-enhanced defect remediation planification with [`fastWorkflow`](https://github.com/radiantlogicinc/fastworkflow)
+- Part 1 | `queueing-MC`: forecasting defect remediation with a black box generalized Monte Carlo queueing model
+- Part 2 | `queueless-MC`: instantiating the generalized Monte Carlo simulations with historical empirical log data
+- Part 3 | `defect_remediation_app`: AI-enhanced defect remediation planification with [`fastWorkflow`](https://github.com/radiantlogicinc/fastworkflow)
 
 The ultimate goal of this research is to develop an agentic AI system for optimization of the defect remediation process as shown in Fig. 1. 
 
@@ -38,6 +38,6 @@ with the output of the interaction being an optimized remediation plan relevant 
 
 This project is sponsored by [Radiant Logic](https://www.radiantlogic.com/), an industry leader in the field of identity and access management (IAM), a sub-field of cybersecurity. 
 
-The model is developed with a focus on IAM, where defects represent situations of heightened vulnerability that violate standard cybersecurity good practices. The field of IAM is concerned with the governance and 
+The field of IAM is concerned with the governance and 
 management of user accounts and accesses to applications, platforms and other technology resources with the goal of limiting superfluous or unused accesses that serve as openings for cybersecurity attacks in our increasingly connected 
-world. 
+world. In this context, the defects of the model are representative of situations of heightened vulnerability that violate standard cybersecurity good practices.
