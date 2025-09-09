@@ -38,7 +38,7 @@ The problem is divided into two stages, an initialization stage (orange-shaded r
 
 ### Simulation input parameters
 
-System-specific input parameters are used to instantiate the simulation (see Fig. 2). They include:
+System-specific input parameters are used to instantiate the simulation (see Fig. 1). They include:
 
 - `--defect_labels`: the defect types to simulate
 - `--defect_priority`: the priority level associated with each defect type (lower = higher priority)
@@ -59,7 +59,7 @@ Simulation-specific input parameters refer to the simulation currently being rea
 
 The main results are collected into the dictionary `comparison_dict`, which contains the results of each of the `trials` simulations.
 
-The primary results can be accessed via the master `defect_log`, which will have recorded the lifetime of all defects from generation to remediation by updating the status of each defect at defining moments as shown in Fig. 1.
+The primary results can be accessed via the master `defect_log`, which will have recorded the lifetime of all defects from generation to remediation by updating the status of each defect at defining moments as shown in Fig. 2.
 
 [Part 2](https://github.com/radiantlogicinc/estimating_gen_mc_simulation/tree/main/queueless-MC) of this project continues the work with a focus on using historical empirical data to build the generation and remediation distributions used in Monte Carlo sampling.
 

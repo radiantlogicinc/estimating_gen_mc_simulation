@@ -93,7 +93,7 @@ target/
 /queueless-MC/figures/*.png
 /queueless-MC/research/datasets/*.xlsx
 /queueless-MC/defect_remediation_estimation_service/*.xlsx
-/queueless-MC/*.csv
+# /queueless-MC/*.csv
 # /queueless-MC/*.py
 /queueing-MC/fWF_estimation/defects.py
 /queueing-MC/research/datasets
