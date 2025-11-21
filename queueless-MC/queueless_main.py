@@ -3,6 +3,7 @@ import time
 import json
 import pickle
 import argparse
+import warnings
 from initialize_simulation_ql import initialize_simulation
 from delta_table_simulation import delta_table_simulation
 from fastworkflow_build import fastworkflow_build
@@ -24,6 +25,7 @@ if __name__ == "__main__":
     args = parser.parse_args()
     # initialize_simulation_ql(args)
     pl.Config.set_tbl_hide_dataframe_shape(True)
+    warnings.filterwarnings("ignore")
 
     log_df, deltas_df, empirical_dict, incoming_dict, outgoing_dict, timedeltas_dict, control_types = initialize_simulation(args)
     for control_type in control_types:
@@ -33,7 +35,7 @@ if __name__ == "__main__":
     queueing_build(control_types, empirical_dict)
     
     # visualize incoming / outgoing distributions
-    print(deltas_df)
+    print(deltas_df.sort('Defect_ID'))
 
     # export states as pickled json or csv
     for item in ['empirical_dict', 'incoming_dict', 'outgoing_dict', 'timedeltas_dict', 'deltas_df']:

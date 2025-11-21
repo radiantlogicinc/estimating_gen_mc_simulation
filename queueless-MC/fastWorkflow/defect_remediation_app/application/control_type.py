@@ -6,19 +6,23 @@ class ControlType:
     def __init__(self, control_type: str):
         self.control_type = control_type
         
-        info_df = pl.read_json('defect_remediation_app_base/application/fastworkflow_df.json', schema={"item":pl.String, "control_type":pl.String, "time_span":pl.String, "mean":pl.String})
+        self.info_df = pl.read_json('defect_remediation_app_base/application/fastworkflow_df.json', schema={"item":pl.String, "control_type":pl.String, "time_span":pl.String, "mean":pl.String})
         # info_df = info_df.with_columns(pl.col('time_span').cast(pl.Int64).alias('time_span'))
         # info_df = info_df.with_columns(pl.col('mean').cast(pl.Float64).alias('mean'))
-        self.info_df = info_df.filter(pl.col("control_type") == self.control_type)
+        self.info_def_filtered = self.info_df.filter(pl.col("control_type") == self.control_type)
         
         pl.Config.set_tbl_hide_dataframe_shape(True)
+
+    def set_control_type(self, control_type: str):
+        self.control_type = control_type
+        self.info_def_filtered = self.info_df.filter(pl.col("control_type") == self.control_type)
 
     def generated_per_day(self, time_span: str):
         """
         Mean # of defects of certain control type being generated per day
         Args: time_span (str): time span over which to compute average: "day", "month", "all_time"
         """
-        value = self.info_df.filter(
+        value = self.info_def_filtered.filter(
             pl.col('item') == f"generated_per_day_{self.control_type}_{time_span}",
             pl.col('time_span') == time_span
             )["mean"][0]
@@ -43,7 +47,7 @@ class ControlType:
         Mean # of defects of certain control type being remediated per day
         Args: time_span (str): time span over which to compute average: "day", "month", "all_time"
         """
-        value = self.info_df.filter(
+        value = self.info_def_filtered.filter(
             pl.col('item') == f"remediated_per_day_{self.control_type}_{time_span}",
             pl.col('time_span') == time_span
             )["mean"][0]
@@ -66,10 +70,10 @@ class ControlType:
 
     def waiting_in_backlog(self, time_span: str):
         "Mean waiting time of defects of certain control type in backlog before beginning remediation"
-        value = str(float(self.info_df.filter(
+        value = str(float(self.info_def_filtered.filter(
             pl.col('item') == f"delta_new_assign_{self.control_type}_{time_span}",
             pl.col('time_span') == time_span
-            )["mean"][0]) + float(self.info_df.filter(
+            )["mean"][0]) + float(self.info_def_filtered.filter(
             pl.col('item') == f"delta_assign_inprogress_{self.control_type}_{time_span}",
             pl.col('time_span') == time_span
             )["mean"][0]))
@@ -91,7 +95,7 @@ class ControlType:
             
     def total_remediation_time(self, time_span: str):
         "Mean total remediation time of defects of certain control type"
-        value = self.info_df.filter(
+        value = self.info_def_filtered.filter(
             pl.col('item') == f"delta_new_closed_{self.control_type}_{time_span}",
             pl.col('time_span') == time_span
             )["mean"][0]
